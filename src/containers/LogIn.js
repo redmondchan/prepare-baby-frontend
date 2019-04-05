@@ -26,7 +26,6 @@ class LogIn extends React.Component{
 
 
   render(){
-    console.log(this.state)
     return(
   <div className="container">
   	<div className="d-flex justify-content-center">

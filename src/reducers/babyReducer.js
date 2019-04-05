@@ -1,7 +1,4 @@
 const initialState = {
-    hp: 50,
-    feed_time: '',
-    feed_date: '',
     log: [],
     user: {},
     baby: {}
@@ -16,6 +13,13 @@ const reducer = (state = initialState, action) => {
     case('SET_BABY'):{
       return {...state, baby: action.payload}
     }
+    case('SET_LOG'):{
+      console.log(action.payload)
+      return {...state, log: action.payload}
+    }
+    case('HUNGRY_BABY'):{
+      return {...state, baby: action.payload}
+    }
     case('FEED_BABY'):{
       let newHp = state.hp + 10
       let today = new Date()
@@ -28,6 +32,7 @@ const reducer = (state = initialState, action) => {
       return {...state, hp: newHp, feed_time: time, feed_date: date, log: newLog }
     }
     case('CHANGE_DIAPER'): {
+      console.log(state)
       let newHp = state.hp + 10
       let today = new Date()
       let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds()
@@ -36,7 +41,7 @@ const reducer = (state = initialState, action) => {
       if(newHp >= 100){
         newHp = 100
       }
-      return {...state, hp: newHp, feed_time: time, feed_date: date, log: newLog }
+      return {...state, hp: newHp, diaper_time: time, diaper_date: date, log: newLog }
     }
     default:
     return state

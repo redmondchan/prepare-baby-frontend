@@ -2,8 +2,11 @@ import React from 'react'
 import HappinessPoints from '../components/HappinessPoints'
 import BabyImage from '../components/BabyImage'
 import Log from '../components/Log'
+import { connect } from 'react-redux'
 
 class Container extends React.Component{
+
+
   render(){
     return(
       <div>
@@ -16,4 +19,10 @@ class Container extends React.Component{
   }
 }
 
-export default Container
+const mapStateToProps = (state) => {
+  return{
+    baby: state.baby
+  }
+}
+
+export default connect(mapStateToProps)(Container)
