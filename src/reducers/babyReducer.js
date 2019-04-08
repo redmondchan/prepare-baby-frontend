@@ -1,5 +1,6 @@
 const initialState = {
     log: [],
+    updatedlog: [],
     user: {},
     baby: {}
 }
@@ -7,7 +8,9 @@ const initialState = {
 const reducer = (state = initialState, action) => {
   switch(action.type){
     case('SET_USER_AND_BABY'):{
-      localStorage.setItem("token", action.payload.jwt)
+      if(action.payload.jwt){
+        localStorage.setItem("token", action.payload.jwt)
+      }
       return {...state, user: action.payload.user, baby: action.payload.baby}
     }
     case('SET_BABY'):{
@@ -16,6 +19,9 @@ const reducer = (state = initialState, action) => {
     case('SET_LOG'):{
       console.log(action.payload)
       return {...state, log: action.payload}
+    }
+    case('ADD_LOG'):{
+      return {...state, log: [action.payload, ...state.log]}
     }
     case('HUNGRY_BABY'):{
       return {...state, baby: action.payload}

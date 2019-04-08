@@ -4,6 +4,7 @@ export const setUserAndBaby = (user) => ({type:'SET_USER_AND_BABY', payload: use
 export const hungryBaby = (baby) => ({type: 'HUNGRY_BABY', payload: baby})
 const setLog = (tasks) => ({type: 'SET_LOG', payload: tasks})
 const setBaby = (baby) => ({type: 'SET_BABY', payload: baby})
+const addLog = (task) => ({type: 'ADD_LOG', payload: task})
 
 export const createUser = (user) => {
   return dispatch => {
@@ -44,10 +45,11 @@ export const updateHp = (baby, task, num) => {
     let today = new Date()
     let time = today.getHours() + ":" + today.getMinutes()
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
-    console.log(num, task, time)
+    console.log(baby.hp, num, task, time)
     let newHp = 0
     let feedLog = ''
-    if(task === 'timer'){
+    if(task === 'hungry'){
+      console.log("new hp", newHp)
       newHp = baby.hp - num
     }else if (task === "feed"){
       newHp = baby.hp + num
@@ -101,11 +103,11 @@ export const createLog = (baby, task) => {
   return dispatch => {
     let token = localStorage.token
     let today = new Date()
-    let time = today.getHours() + ":" + ((date.getMinutes()<10?'0':'') + date.getMinutes())
+    let time = today.getHours() + ":" + ((today.getMinutes()<10?'0':'') + today.getMinutes())
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
     let newTask = ''
-    if(task === 'timer'){
-      newTask = `Timer baby at ${time} on ${date}`
+    if(task === 'hungry'){
+      newTask = `Hungry baby at ${time} on ${date}`
     }else if (task === "feed"){
       newTask = `Fed baby at ${time} on ${date}`
     }else if (task === 'diaper'){
@@ -121,7 +123,7 @@ export const createLog = (baby, task) => {
       body: JSON.stringify({ baby_id: baby.id, task: newTask})
     })
     .then(resp => resp.json())
-    .then(console.log)
+    .then(resp => dispatch(addLog(resp.task)))
     .catch(console.error)
   }
 }
@@ -141,5 +143,22 @@ export const getLogs = (user) => {
       let tasks = filteredLogs.map(log => log.task)
       dispatch(setLog(tasks))
     })
+  }
+}
+
+export const getUser = (token) => {
+  console.log(token)
+  return dispatch => {
+    return fetch('http://localhost:3000/api/v1/profile', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    .then(resp => resp.json())
+    .then(resp => dispatch(setUserAndBaby(resp)))
+    .catch(console.error)
   }
 }

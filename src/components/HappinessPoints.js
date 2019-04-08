@@ -5,7 +5,6 @@ import { connect } from 'react-redux'
 
 class HappinessPoints extends React.Component {
   render (){
-    console.log(this.props)
     return(
       <div className="hp-component">
         <h1>HP: {this.props.hp}</h1>

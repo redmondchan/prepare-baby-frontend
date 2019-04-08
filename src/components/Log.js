@@ -10,22 +10,31 @@ import { connect } from 'react-redux'
 
 class Log extends React.Component {
 
+  state = {
+    logs: false
+  }
+
   componentDidUpdate(){
     if(this.props.baby.feed_time !== null){
     let baby = this.props.baby
     let fedTime = this.props.baby.feed_time.split(':')
-    let fedMins = (fedTime[0] * 60) + fedTime[1]
+    let fedMins = parseInt(fedTime[0] * 60) + parseInt(fedTime[1])
     let today = new Date()
     let time = today.getHours() + ":" + today.getMinutes()
     let currentTime = time.split(":")
-    let currentMins = (currentTime[0] * 60) + currentTime[1]
+    let currentMins = parseInt(currentTime[0] * 60) + parseInt(currentTime[1])
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
     let difference = currentMins - fedMins
+    console.log(currentMins, fedMins, difference)
     if(difference > 1){
       let x = difference/1
-      this.props.updateHp(baby, "timer", x)
+      this.props.updateHp(baby, "hungry", x)
+      this.props.createLog(this.props.baby, "hungry")
     }
-  }; this.props.getLogs(this.props.user)
+  }; if(!this.state.logs){
+    this.props.getLogs(this.props.user); this.setState({logs: true})
+  }
+  // }; this.state.logs ?  : this.props.getLogs(this.props.user); this.setState({logs: true})
   }
 
   render(){
@@ -34,16 +43,18 @@ class Log extends React.Component {
     if(this.props.baby.feed_time !== null){
     let baby = this.props.baby
     let fedTime = this.props.baby.feed_time.split(':')
-    let fedMins = (fedTime[0] * 60) + fedTime[1]
+    let fedMins = parseInt(fedTime[0] * 60) + parseInt(fedTime[1])
     let today = new Date()
     let time = today.getHours() + ":" + today.getMinutes()
     let currentTime = time.split(":")
-    let currentMins = (currentTime[0] * 60) + currentTime[1]
+    let currentMins = parseInt(currentTime[0] * 60) + parseInt(currentTime[1])
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
     let difference = currentMins - fedMins
+    console.log(currentMins, fedMins, difference)
     if(difference > 1){
       let x = difference/1
-      this.props.updateHp(baby, "timer", x)
+      this.props.updateHp(baby, "hungry", x)
+      this.props.createLog(this.props.baby, "hungry")
     }
   }
   }
@@ -69,7 +80,7 @@ class Log extends React.Component {
           {this.props.log.map(action => <li>{action}</li>)}
         </ul>
         <button onClick={() => {this.props.createLog(this.props.baby, "feed"); this.props.updateHp(this.props.baby, "feed", 10)}}>Feed Me</button>
-        <button onClick={() => this.props.updateHp(this.props.baby, "diaper", 10)}>Change Diaper</button>
+        <button onClick={() => {this.props.createLog(this.props.baby, "diaper"); this.props.updateHp(this.props.baby, "diaper", 10)}}>Change Diaper</button>
       </div>
     )
   }
