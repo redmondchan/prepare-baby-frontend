@@ -43,6 +43,11 @@ height: 100%;
 font-family: 'Numans', sans-serif;
 }
 
+.baby-log {
+  max-height: 500px;
+  overflow-y: scroll;
+}
+
 .container{
 height: 100%;
 align-content: center;

@@ -1,9 +1,8 @@
 export const feedBaby = () => ({type: 'FEED_BABY'})
 export const changeDiaper = () => ({type: 'CHANGE_DIAPER'})
-export const setUserAndBaby = (user) => ({type:'SET_USER_AND_BABY', payload: user})
+export const setUserBabyLog = (user) => ({type:'SET_USER_BABY_LOG', payload: user})
 export const hungryBaby = (baby) => ({type: 'HUNGRY_BABY', payload: baby})
 const setLog = (tasks) => ({type: 'SET_LOG', payload: tasks})
-const setBaby = (baby) => ({type: 'SET_BABY', payload: baby})
 const addLog = (task) => ({type: 'ADD_LOG', payload: task})
 
 export const createUser = (user) => {
@@ -17,7 +16,8 @@ export const createUser = (user) => {
       body: JSON.stringify(user)
     })
     .then(resp => resp.json())
-    .then(resp => dispatch(setUserAndBaby(resp)))
+    // .then(console.log)
+    .then(resp => dispatch(setUserBabyLog(resp)))
     .catch(console.error)
   }
 }
@@ -34,7 +34,7 @@ export const findUser = (user) => {
       body: JSON.stringify(user)
     })
     .then(resp => resp.json())
-    .then(resp => dispatch(setUserAndBaby(resp)))
+    .then(resp => dispatch(setUserBabyLog(resp)))
     .catch(console.error)
   }
 }
@@ -43,21 +43,78 @@ export const updateHp = (baby, task, num) => {
   return dispatch => {
     let token = localStorage.token
     let today = new Date()
+    let currentTime = today.getTime()
     let time = today.getHours() + ":" + today.getMinutes()
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
+    console.log(baby)
     console.log(baby.hp, num, task, time)
     let newHp = 0
-    let feedLog = ''
+    let jsonBody = {}
+    console.log("num being passed in", num)
     if(task === 'hungry'){
-      console.log("new hp", newHp)
       newHp = baby.hp - num
+      console.log(newHp);
+      if(newHp > 100){
+       newHp = 100
+      }
+      jsonBody = {hp: newHp, hungry_time: today}
+    } else if (task === "dirty") {
+      newHp = baby.hp - num
+      if(newHp > 100){
+         newHp = 100
+      }
+      jsonBody = {hp: newHp, dirty_time: today}
     }else if (task === "feed"){
-      newHp = baby.hp + num
-      feedLog = `Fed baby at ${time} on ${date}`
-    }else if (task === 'diaper'){
-      newHp = baby.hp + num
-    }
+      if(baby.initialFeed === false){
+        newHp = baby.hp + num
+        if(newHp > 100){
+           newHp = 100
+        }
+        jsonBody = {hp: newHp, feed_time: today, hungry_time: today, initialFeed: true}
+      } else if (baby.initialFeed){
+        let feedTime = new Date(baby.feed_time).getTime()
+        let differenceMins = (currentTime - feedTime)/60000
 
+        if(differenceMins >= 5){
+          newHp = baby.hp + num
+          if(newHp > 100){
+             newHp = 100
+          }
+          jsonBody = {hp: newHp, feed_time: today, hungry_time: today}
+        }else if (differenceMins < 5){
+          newHp = baby.hp - num
+          if(newHp > 100){
+             newHp = 100
+          }
+          jsonBody = {hp: newHp}
+        }
+      }
+    }else if (task === 'diaper'){
+      if(baby.initialDiaper === false){
+        newHp = baby.hp + num
+        if(newHp > 100){
+           newHp = 100
+        }
+        jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, initialDiaper: true}
+      }else if (baby.initialDiaper){
+        let diaperTime = new Date(baby.diaper_time).getTime()
+        let differenceMins = (currentTime - diaperTime)/60000
+        if(differenceMins >= 60){
+          newHp = baby.hp + num
+          if(newHp > 100){
+             newHp = 100
+          }
+          jsonBody = {hp: newHp, diaper_time: today, dirty_time: today}
+        }else if(differenceMins < 60){
+          newHp = baby.hp - num
+          if(newHp > 100){
+            newHp = 100
+          }
+          jsonBody = {hp: newHp}
+        }
+      }
+    }
+    console.log(today.getTime())
     return fetch(`http://localhost:3000/api/v1/babies/${baby.id}`, {
       method: "PATCH",
       headers: {
@@ -65,35 +122,10 @@ export const updateHp = (baby, task, num) => {
         'Accept': 'application/json',
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({hp: newHp, feed_time: time})
+      body: JSON.stringify(jsonBody)
     })
     .then(resp => resp.json())
     .then(resp => { dispatch(hungryBaby(resp))
-      // task == "feed" ? dispatch(feedBaby(resp)):dispatch(changeDiaper(resp))
-      // dispatch(setBaby(resp))
-    })
-    .catch(console.error)
-  }
-}
-export const decreaseHp = (baby, task) => {
-  return dispatch => {
-    let token = localStorage.token
-    let today = new Date()
-    let time = today.getHours() + ":" + today.getMinutes()
-    let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
-    return fetch(`http://localhost:3000/api/v1/babies/${baby.id}`, {
-      method: "PATCH",
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        Authorization: `Bearer ${token}`
-      },
-      body: JSON.stringify({hp: (baby.hp - 1), feed_time: time, feed_date: date})
-    })
-    .then(resp => resp.json())
-    .then(resp => {
-      task == "feed" ? dispatch(feedBaby(resp)):dispatch(changeDiaper(resp))
-      dispatch(setBaby(resp))
     })
     .catch(console.error)
   }
@@ -103,15 +135,38 @@ export const createLog = (baby, task) => {
   return dispatch => {
     let token = localStorage.token
     let today = new Date()
+    let currentTime = today.getTime()
     let time = today.getHours() + ":" + ((today.getMinutes()<10?'0':'') + today.getMinutes())
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
     let newTask = ''
     if(task === 'hungry'){
       newTask = `Hungry baby at ${time} on ${date}`
+    }else if (task === "dirty"){
+      newTask = `Baby pooped at ${time} on ${date}`
     }else if (task === "feed"){
-      newTask = `Fed baby at ${time} on ${date}`
+      if (baby.initialFeed === false){
+        newTask = `Fed baby at ${time} on ${date}`
+      }else if (baby.initialFeed){
+        let feedTime = new Date(baby.feed_time).getTime()
+        let differenceMins = (currentTime - feedTime)/60000
+        if(differenceMins >= 60){
+          newTask = `Fed baby at ${time} on ${date}`
+        }else if (differenceMins < 60){
+          newTask = `Forced baby to eat at ${time} on ${date}`
+        }
+      }
     }else if (task === 'diaper'){
-      newTask = `Changed diper at ${time} on ${date}`
+      if(baby.initialDiaper === false){
+        newTask = `Changed diaper at ${time} on ${date}`
+      }else if (baby.initialDiaper){
+        let diaperTime = new Date(baby.diaper_time).getTime()
+        let differenceMins = (currentTime - diaperTime)/60000
+        if(differenceMins >= 60){
+          newTask = `Changed diaper at ${time} on ${date}`
+        }else if(differenceMins < 60){
+          newTask = `Wasted baby's time by changing diaper too early at ${time} on ${date}`
+        }
+      }
     }
     return fetch('http://localhost:3000/api/v1/logs', {
       method: 'POST',
@@ -139,7 +194,7 @@ export const getLogs = (user) => {
     })
     .then(resp => resp.json())
     .then(resp => {
-      let filteredLogs = resp.filter(log => log.baby_id == user.id)
+      let filteredLogs = resp.filter(log => log.baby_id === user.id)
       let tasks = filteredLogs.map(log => log.task)
       dispatch(setLog(tasks))
     })
@@ -158,7 +213,7 @@ export const getUser = (token) => {
       }
     })
     .then(resp => resp.json())
-    .then(resp => dispatch(setUserAndBaby(resp)))
+    .then(resp => dispatch(setUserBabyLog(resp)))
     .catch(console.error)
   }
 }

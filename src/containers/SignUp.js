@@ -20,7 +20,9 @@ class SignUp extends React.Component{
 // handles submission of sign up form
   handleSubmit = (e) => {
     e.preventDefault()
-    this.props.createUser({user: this.state})
+    let today = new Date()
+    console.log()
+    this.props.createUser({user: {username: this.state.username, password: this.state.password, javascript_time: `${today}`} })
     this.props.history.push('/baby')
   }
 
