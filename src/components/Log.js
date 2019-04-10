@@ -13,7 +13,6 @@ class Log extends React.Component {
 
   componentDidMount(){
     let updatingHp = () => {
-      console.log("1")
       let baby = this.props.baby
       let currentDate = Math.floor(new Date().getTime()/60000)
       let hungryOldDate = Math.floor((new Date(this.props.baby.hungry_time).getTime())/60000)

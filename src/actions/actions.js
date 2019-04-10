@@ -4,9 +4,24 @@ export const setUserBabyLog = (user) => ({type:'SET_USER_BABY_LOG', payload: use
 export const hungryBaby = (baby) => ({type: 'HUNGRY_BABY', payload: baby})
 const setLog = (tasks) => ({type: 'SET_LOG', payload: tasks})
 const addLog = (task) => ({type: 'ADD_LOG', payload: task})
+const getNames = (names) => ({type: 'GET_NAMES', payload: names})
+
+export const fetchNames = () => {
+  return dispatch => {
+    return fetch('https://data.cityofnewyork.us/resource/25th-nujf.json')
+    .then(resp => resp.json())
+    .then(resp => {
+      let names = []
+      resp.map(object => names.push(object.nm))
+      console.log(names)
+      dispatch(getNames(names))
+    })
+  }
+}
 
 export const createUser = (user) => {
   return dispatch => {
+    console.log("Creating User")
     return fetch('http://localhost:3000/api/v1/signup', {
       method: "POST",
       headers: {
@@ -46,22 +61,18 @@ export const updateHp = (baby, task, num) => {
     let currentTime = today.getTime()
     let time = today.getHours() + ":" + today.getMinutes()
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
-    console.log(baby)
-    console.log(baby.hp, num, task, time)
     let newHp = 0
     let jsonBody = {}
-    console.log("num being passed in", num)
     if(task === 'hungry'){
       newHp = baby.hp - num
-      console.log(newHp);
-      if(newHp > 100){
-       newHp = 100
+      if(newHp < 0){
+       newHp = 0
       }
       jsonBody = {hp: newHp, hungry_time: today}
     } else if (task === "dirty") {
       newHp = baby.hp - num
-      if(newHp > 100){
-         newHp = 100
+      if(newHp < 0){
+         newHp = 0
       }
       jsonBody = {hp: newHp, dirty_time: today}
     }else if (task === "feed"){
@@ -83,8 +94,8 @@ export const updateHp = (baby, task, num) => {
           jsonBody = {hp: newHp, feed_time: today, hungry_time: today}
         }else if (differenceMins < 5){
           newHp = baby.hp - num
-          if(newHp > 100){
-             newHp = 100
+          if(newHp < 0){
+             newHp = 0
           }
           jsonBody = {hp: newHp}
         }
@@ -107,8 +118,8 @@ export const updateHp = (baby, task, num) => {
           jsonBody = {hp: newHp, diaper_time: today, dirty_time: today}
         }else if(differenceMins < 60){
           newHp = baby.hp - num
-          if(newHp > 100){
-            newHp = 100
+          if(newHp < 0){
+            newHp = 0
           }
           jsonBody = {hp: newHp}
         }

@@ -2,7 +2,8 @@ const initialState = {
     log: [],
     updatedlog: [],
     user: {},
-    baby: {}
+    baby: {},
+    names: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -23,6 +24,9 @@ const reducer = (state = initialState, action) => {
     }
     case('HUNGRY_BABY'):{
       return {...state, baby: action.payload}
+    }
+    case('GET_NAMES'):{
+      return {...state, names: action.payload}
     }
     default:
     return state

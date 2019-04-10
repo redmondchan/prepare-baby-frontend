@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { fetchNames } from '../actions/actions'
 import { createUser } from '../actions/actions'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
@@ -9,6 +10,10 @@ class SignUp extends React.Component{
   state={
       username: "",
       password: ""
+  }
+
+  componentDidMount(){
+    this.props.fetchNames()
   }
 
   handleChange = (e) => {
@@ -21,8 +26,9 @@ class SignUp extends React.Component{
   handleSubmit = (e) => {
     e.preventDefault()
     let today = new Date()
+    let name = this.props.names[Math.floor(Math.random() * this.props.names.length)]
     console.log()
-    this.props.createUser({user: {username: this.state.username, password: this.state.password, javascript_time: `${today}`} })
+    this.props.createUser({user: {username: this.state.username, password: this.state.password, javascript_time: `${today}`, baby_name: name} })
     this.props.history.push('/baby')
   }
 
@@ -71,7 +77,14 @@ class SignUp extends React.Component{
 }
 
 const mapDispatchToProps = dispatch => ({
+  fetchNames: () => dispatch(fetchNames()),
   createUser: (user) => dispatch(createUser(user))
 })
 
-export default connect(null, mapDispatchToProps)(withRouter(SignUp))
+const mapStateToProps = (state) => {
+  return {
+    names: state.names
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(SignUp))
