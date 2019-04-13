@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import 'semantic-ui-css/semantic.min.css'
 import Container from './containers/Container'
 import SignUp from './containers/SignUp'
 import LogIn from './containers/LogIn'

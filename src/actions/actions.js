@@ -228,3 +228,24 @@ export const getUser = (token) => {
     .catch(console.error)
   }
 }
+
+export const postAnswers = (user, value) => {
+  return dispatch => {
+    let token = localStorage.token
+    let answerBody = {}
+    if(value === "selffish"){
+      answerBody = {selffish: user.selffish + 1}
+    }else if (value === "selfless"){
+      answerBody = {selfless: user.selfless + 1}
+    }
+    return fetch(`http://localhost:3000/api/v1/users/${user.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify(answerBody)
+    })
+  }
+}

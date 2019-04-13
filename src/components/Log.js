@@ -5,6 +5,8 @@ import { getLogs } from '../actions/actions'
 
 import { connect } from 'react-redux'
 
+import {List, Segment} from 'semantic-ui-react'
+
 class Log extends React.Component {
 
   state = {
@@ -54,16 +56,13 @@ class Log extends React.Component {
 
   render(){
     return(
-      <div>
-        <h1>Log</h1>
-        <div className='baby-log'>
-          <ul>
-            {this.props.log.map(action => <li>{action}</li>)}
-          </ul>
-        </div>
+      <Segment size={"medium"} inverted className="log-list">
+        <List divided inverted relaxed>
+        {this.props.log.map(action => <List.Item><List.Content>{action}</List.Content></List.Item>)}
         <button onClick={() => {this.props.createLog(this.props.baby, "feed"); this.props.updateHp(this.props.baby, "feed", 10)}}>Feed Me</button>
         <button onClick={() => {this.props.createLog(this.props.baby, "diaper"); this.props.updateHp(this.props.baby, "diaper", 10)}}>Change Diaper</button>
-      </div>
+        </List>
+      </Segment>
     )
   }
 }
