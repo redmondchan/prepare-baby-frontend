@@ -5,7 +5,7 @@ import { getLogs } from '../actions/actions'
 
 import { connect } from 'react-redux'
 
-import {List, Segment} from 'semantic-ui-react'
+import { Grid, List, Segment, Button} from 'semantic-ui-react'
 
 class Log extends React.Component {
 
@@ -56,13 +56,23 @@ class Log extends React.Component {
 
   render(){
     return(
-      <Segment size={"medium"} inverted className="log-list">
-        <List divided inverted relaxed>
-        {this.props.log.map(action => <List.Item><List.Content>{action}</List.Content></List.Item>)}
-        <button onClick={() => {this.props.createLog(this.props.baby, "feed"); this.props.updateHp(this.props.baby, "feed", 10)}}>Feed Me</button>
-        <button onClick={() => {this.props.createLog(this.props.baby, "diaper"); this.props.updateHp(this.props.baby, "diaper", 10)}}>Change Diaper</button>
-        </List>
-      </Segment>
+      <div>
+        <div className="logs">
+          <Segment size={"medium"} inverted className="log-list">
+            <List divided inverted relaxed>
+            {this.props.log.map(action => <List.Item><List.Content>{action}</List.Content></List.Item>)}
+            </List>
+          </Segment>
+        </div>
+        <Grid className="buttons">
+          <Grid.Row>
+            <Button className="action-button" onClick={() => {this.props.createLog(this.props.baby, "feed"); this.props.updateHp(this.props.baby, "feed", 10)}}>Feed Me</Button>
+          </Grid.Row>
+          <Grid.Row>
+            <Button className="action-button" onClick={() => {this.props.createLog(this.props.baby, "diaper"); this.props.updateHp(this.props.baby, "diaper", 10)}}>Change Diaper</Button>
+          </Grid.Row>
+        </Grid>
+      </div>
     )
   }
 }

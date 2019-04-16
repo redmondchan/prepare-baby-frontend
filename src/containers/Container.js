@@ -3,22 +3,24 @@ import HappinessPoints from '../components/HappinessPoints'
 import BabyImage from '../components/BabyImage'
 import Log from '../components/Log'
 import ScenarioModal from '../components/ScenarioModal'
+import DropdownMenu from '../components/Dropdown'
+import {Container} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-class Container extends React.Component{
+class Parent extends React.Component{
 
 
   render(){
     return(
-      <div>
-        <h1>Container</h1>
+      <Container fluid textAlign='center'>
 
         <ScenarioModal />
+        <DropdownMenu />
 
         <HappinessPoints />
         <BabyImage />
         <Log />
-      </div>
+      </Container>
     )
   }
 }
@@ -29,4 +31,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Container)
+export default connect(mapStateToProps)(Parent)

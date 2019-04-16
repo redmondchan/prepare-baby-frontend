@@ -1,4 +1,5 @@
 import React from 'react'
+import {Container} from 'semantic-ui-react'
 
 import { connect } from 'react-redux'
 
@@ -7,12 +8,12 @@ class HappinessPoints extends React.Component {
   render (){
     console.log(this.props)
     return(
-      <div className="hp-component">
+      <Container className="hp-component">
         <h1>HP: {this.props.hp}</h1>
         <div className="health-bar">
           <div className="filler" style={{width: `${this.props.hp}%`}} />
         </div>
-      </div>
+      </Container>
     )
   }
 }

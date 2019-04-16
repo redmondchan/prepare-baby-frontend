@@ -7,6 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter } from 'react-router-dom'
 
 import { createStore, applyMiddleware } from 'redux'
+
 import { Provider } from 'react-redux'
 import babyReducer from './reducers/babyReducer'
 import thunk from 'redux-thunk'
