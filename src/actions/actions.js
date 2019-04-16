@@ -5,6 +5,7 @@ export const hungryBaby = (baby) => ({type: 'HUNGRY_BABY', payload: baby})
 const setLog = (tasks) => ({type: 'SET_LOG', payload: tasks})
 const addLog = (task) => ({type: 'ADD_LOG', payload: task})
 const getNames = (names) => ({type: 'GET_NAMES', payload: names})
+export const logOut = () => ({type:'LOG_OUT'})
 
 export const fetchNames = () => {
   return dispatch => {
@@ -13,7 +14,6 @@ export const fetchNames = () => {
     .then(resp => {
       let names = []
       resp.map(object => names.push(object.nm))
-      console.log(names)
       dispatch(getNames(names))
     })
   }
@@ -61,13 +61,13 @@ export const updateHp = (baby, task, num) => {
     let currentTime = today.getTime()
     let time = today.getHours() + ":" + today.getMinutes()
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
-    let newHp = 0
-    let newFeed = 0
-    let newFeedMissed = 0
-    let newDiaperMissed = 0
-    let newDiaper = 0
-    let newForceFeed = 0
-    let newForceDiaper = 0
+    let newHp, newFeed, newFeedMissed, newDiaperMissed, newDiaper, newForceFeed, newForceDiaper, feedMoney, diaperMoney = 0
+    // let newFeed = 0
+    // let newFeedMissed = 0
+    // let newDiaperMissed = 0
+    // let newDiaper = 0
+    // let newForceFeed = 0
+    // let newForceDiaper = 0
     let jsonBody = {}
     if(task === 'hungry'){
       newHp = baby.hp - num
@@ -75,14 +75,14 @@ export const updateHp = (baby, task, num) => {
       if(newHp < 0){
        newHp = 0
       }
-      jsonBody = {hp: newHp, hungry_time: today, feedMissed: newFeedMissed}
+      jsonBody = {hp: newHp, hungry_time: today, feedMissed: newFeedMissed, feedMoney: baby.feedMoney + 1}
     } else if (task === "dirty") {
       newHp = baby.hp - num
       newDiaperMissed = baby.diaperMissed + 1
       if(newHp < 0){
          newHp = 0
       }
-      jsonBody = {hp: newHp, dirty_time: today, diaperMissed: newDiaperMissed }
+      jsonBody = {hp: newHp, dirty_time: today, diaperMissed: newDiaperMissed, diaperMoney: baby.diaperMoney + 1 }
     }else if (task === "feed"){
       if(baby.initialFeed === false){
         newHp = baby.hp + num
@@ -90,7 +90,7 @@ export const updateHp = (baby, task, num) => {
         if(newHp > 100){
            newHp = 100
         }
-        jsonBody = {hp: newHp, feed_time: today, hungry_time: today, initialFeed: true, feed: newFeed}
+        jsonBody = {hp: newHp, feed_time: today, hungry_time: today, initialFeed: true, feed: newFeed, feedMoney: baby.feedMoney + 1}
       } else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
@@ -101,7 +101,7 @@ export const updateHp = (baby, task, num) => {
           if(newHp > 100){
              newHp = 100
           }
-          jsonBody = {hp: newHp, feed_time: today, hungry_time: today, feed: newFeed}
+          jsonBody = {hp: newHp, feed_time: today, hungry_time: today, feed: newFeed, feedMoney: baby.feedMoney + 1}
         }else if (differenceMins < 5){
           newHp = baby.hp - num
           newForceFeed = baby.forceFeed + 1
@@ -118,7 +118,7 @@ export const updateHp = (baby, task, num) => {
         if(newHp > 100){
            newHp = 100
         }
-        jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, initialDiaper: true, diaper: newDiaper }
+        jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, initialDiaper: true, diaper: newDiaper, diaperMoney: baby.diaperMoney + 1 }
       }else if (baby.initialDiaper){
         let diaperTime = new Date(baby.diaper_time).getTime()
         let differenceMins = (currentTime - diaperTime)/60000
@@ -128,7 +128,7 @@ export const updateHp = (baby, task, num) => {
           if(newHp > 100){
              newHp = 100
           }
-          jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, diaper: newDiaper}
+          jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, diaper: newDiaper, diaperMoney: baby.diaperMoney + 1}
         }else if(differenceMins < 60){
           newHp = baby.hp - num
           newForceDiaper = baby.forceiaper + 1

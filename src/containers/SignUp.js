@@ -27,7 +27,6 @@ class SignUp extends React.Component{
     e.preventDefault()
     let today = new Date()
     let name = this.props.names[Math.floor(Math.random() * this.props.names.length)]
-    console.log()
     this.props.createUser({user: {username: this.state.username, password: this.state.password, javascript_time: `${today}`, baby_name: name} })
     this.props.history.push('/baby')
   }

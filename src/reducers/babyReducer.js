@@ -28,6 +28,10 @@ const reducer = (state = initialState, action) => {
     case('GET_NAMES'):{
       return {...state, names: action.payload}
     }
+    case('LOG_OUT'):{
+      localStorage.clear()
+      return { log: [], updatedlog: [], user: {}, baby: {}, names: [] }
+    }
     default:
     return state
   }

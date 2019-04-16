@@ -4,22 +4,22 @@ import CanvasJSReact from '../canvasjs.react.js'
 const CanvasJSChart = CanvasJSReact.CanvasJSChart
 const CanvasJS = CanvasJSReact.CanvasJS
 
-class PieStatsScenario extends React.Component {
+class PieStatsCost extends React.Component {
 	render() {
-		console.log(this.props.user)
+		console.log(this.props.baby)
 		const options = {
 			animationEnabled: true,
 			theme: "light1", // "light1", "dark1", "dark2"
 			title:{
-				text: "Sceanrio"
+				text: "Expenses"
 			},
 			data: [{
 				type: "pie",
 				indexLabel: "{label}",
 				startAngle: -90,
 				dataPoints: [
-					{ y: this.props.user.selffish, label: "Let someone else watch your baby" },
-					{ y: this.props.user.selfless, label: "Watched your baby" }
+					{ y: this.props.baby.feedMoney, label: "Food Cost" },
+					{ y: this.props.baby.diaperMoney * 0.25, label: "Diaper Cost" }
 				]
 			}]
 		}
@@ -37,8 +37,8 @@ class PieStatsScenario extends React.Component {
 
 const mapStateToProps = (state) => {
 	return{
-		user: state.user
+		baby: state.baby
 	}
 }
 
-export default connect(mapStateToProps)(PieStatsScenario)
+export default connect(mapStateToProps)(PieStatsCost)
