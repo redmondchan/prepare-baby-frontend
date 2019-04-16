@@ -7,13 +7,13 @@ class BabyImage extends React.Component {
   render(){
     let hp = this.props.baby.hp
     return(
-      <div>
+      <div height="50%">
         <h1>{this.props.baby.name}</h1>
         {hp === 0 ?
           <p className="paragraph-image">Your baby ran away and found someone else</p>
           :
           <div>
-            <img src={hp > 70 ? happyBaby:angryBaby} alt="" width="500" height="40%"/>,
+            <img src={hp > 70 ? happyBaby:angryBaby} alt="" width="500" height="50%"/>,
             <a href="https://www.freevector.com/free-baby-cartoon-icons-vectors-21842#">Vector image credit</a>
           </div>
         }

@@ -177,7 +177,7 @@ export const createLog = (baby, task) => {
         if(differenceMins >= 60){
           newTask = `Fed baby at ${time} on ${date}`
         }else if (differenceMins < 60){
-          newTask = `force baby to eat at ${time} on ${date}`
+          newTask = `Forced baby to eat at ${time} on ${date}`
         }
       }
     }else if (task === 'diaper'){

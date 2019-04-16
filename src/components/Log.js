@@ -52,15 +52,33 @@ class Log extends React.Component {
     }, 2000);
 
   }
+  // {this.props.log.map(action => <List.Item><List.Content>💩 {action}</List.Content></List.Item>)}
 
 
   render(){
+
+    let actions = this.props.log.map(action => {
+      if(action.includes("Changed")){
+        return <List.Item><List.Content>💩 {action}</List.Content></List.Item>
+      }else if (action.includes("Fed")){
+        return <List.Item><List.Content>🍼 {action}</List.Content></List.Item>
+      }else if (action.includes("Hungry")){
+        return <List.Item><List.Content>🤤 {action}</List.Content></List.Item>
+      }else if (action.includes("pooped")){
+        return <List.Item><List.Content>🤢 {action}</List.Content></List.Item>
+      }else if (action.includes("Wasted")){
+        return <List.Item><List.Content>💸 {action}</List.Content></List.Item>
+      }else if (action.includes("Forced")){
+        return <List.Item><List.Content>🤭 {action}</List.Content></List.Item>
+      }
+    })
+
     return(
       <div>
         <div className="logs">
           <Segment size={"medium"} inverted className="log-list">
             <List divided inverted relaxed>
-            {this.props.log.map(action => <List.Item><List.Content>{action}</List.Content></List.Item>)}
+            {actions}
             </List>
           </Segment>
         </div>

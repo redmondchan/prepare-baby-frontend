@@ -27,6 +27,20 @@ code {
   border: 1px solid #333;
 }
 
+.hp-bar {
+  width: 350px;
+}
+
+.hp-div{
+  width: 100%;
+  text-align: left;
+}
+
+/* .hp-text{
+  float: left;
+  margin-bottom: 25px;
+} */
+
 .filler {
   background: #FF0000;
   height: 100%;
