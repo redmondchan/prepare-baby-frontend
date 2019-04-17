@@ -10,7 +10,10 @@ class BabyImage extends React.Component {
       <div className="baby-container">
         <h1 className="baby-name">{this.props.baby.name}</h1>
         {hp === 0 ?
-          <p className="paragraph-image">Your baby ran away and found someone else</p>
+          <div>
+            <p className="baby-p">Your baby ran away and found someone else</p>
+            <img className="baby-run" src="https://media.giphy.com/media/tpFl2rLh1FETC/giphy.gif" alt="gif of baby running away" align="middle"></img>
+          </div>
           :
           <div className="baby-image">
             <img src={hp > 70 ? happyBaby:angryBaby} alt="" width="500" height="50%"/>,

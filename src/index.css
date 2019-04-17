@@ -76,6 +76,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   justify-content: center;
 }
 
+.baby-p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.baby-run {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
+
 .baby-image {
   display: flex;
   align-items: center;

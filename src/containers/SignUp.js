@@ -9,7 +9,8 @@ class SignUp extends React.Component{
 
   state={
       username: "",
-      password: ""
+      password: "",
+      email: ""
   }
 
   componentDidMount(){

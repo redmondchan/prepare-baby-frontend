@@ -31,14 +31,11 @@ class ScenarioModal extends React.Component {
         <Modal.Content>
           <Modal.Description>
             <Header>{this.state.question}</Header>
-            <p>We've found the following gravatar image associated with your e-mail address.</p>
-            <p>Is it okay to use this photo?</p>
           </Modal.Description>
       </Modal.Content>
       <Modal.Actions>
         <Button basic color='red' value="selffish" onClick={(e) => this.handleClose(e.target.value)}>Leave your baby with someone.</Button>
         <Button color='green' value="selfless" onClick={(e) => this.handleClose(e.target.value)}>Stay with your baby.</Button>
-        <Button color='yellow' onClick={this.handleClose}></Button>
       </Modal.Actions>
     </Modal>
     )

@@ -14,29 +14,28 @@ class Log extends React.Component {
   }
 
   componentDidMount(){
+    console.log(localStorage.token)
     let updatingHp = () => {
-      let baby = this.props.baby
-      let currentDate = Math.floor(new Date().getTime()/60000)
-      let hungryOldDate = Math.floor((new Date(this.props.baby.hungry_time).getTime())/60000)
-      let dirtyOldDate = Math.floor(new Date(this.props.baby.dirty_time).getTime()/60000)
-      // converting milliseconds to minutes
-      let hungryDifference = (currentDate - hungryOldDate)
-      let dirtyDifference = (currentDate - dirtyOldDate)
-      // console.log(`hungryDifference : ${hungryDifference}`, "current Date:", new Date(currentDate * 60000), "hungryOldDate:", new Date(hungryOldDate * 60000))
-      // console.log(`hungryDifference : ${dirtyDifference}`, "current Date:", new Date(currentDate * 60000), "dirtyOldDate:", new Date(dirtyOldDate * 60000))
-      if(hungryDifference > 2){
-        let x = hungryDifference/1
-        console.log(`hungryDifference : ${hungryDifference}`, "current Date:", new Date(currentDate * 60000), "hungryOldDate:", new Date(hungryOldDate * 60000))
-        this.props.updateHp(baby, "hungry", x)
-        this.props.createLog(this.props.baby, "hungry")
-      }
-      if(dirtyDifference > 1){
-        let x = dirtyDifference/1
-        console.log(`hungryDifference : ${dirtyDifference}`, "current Date:", new Date(currentDate * 60000), "dirtyOldDate:", new Date(dirtyOldDate * 60000))
-        this.props.updateHp(baby, "dirty", x)
-        this.props.createLog(this.props.baby, "dirty")
-      }
-    };
+        let baby = this.props.baby
+        let currentDate = Math.floor(new Date().getTime()/60000)
+        let hungryOldDate = Math.floor((new Date(this.props.baby.hungry_time).getTime())/60000)
+        let dirtyOldDate = Math.floor(new Date(this.props.baby.dirty_time).getTime()/60000)
+        // converting milliseconds to minutes
+        let hungryDifference = (currentDate - hungryOldDate)
+        let dirtyDifference = (currentDate - dirtyOldDate)
+        if(hungryDifference > 2){
+          let x = hungryDifference/1
+          console.log(`hungryDifference : ${hungryDifference}`, "current Date:", new Date(currentDate * 60000), "hungryOldDate:", new Date(hungryOldDate * 60000))
+          this.props.updateHp(baby, "hungry", x)
+          this.props.createLog(this.props.baby, "hungry")
+        }
+        if(dirtyDifference > 1){
+          let x = dirtyDifference/1
+          console.log(`hungryDifference : ${dirtyDifference}`, "current Date:", new Date(currentDate * 60000), "dirtyOldDate:", new Date(dirtyOldDate * 60000))
+          this.props.updateHp(baby, "dirty", x)
+          this.props.createLog(this.props.baby, "dirty")
+        }
+      };
 
     setInterval(updatingHp, 10000)
 
@@ -52,12 +51,12 @@ class Log extends React.Component {
     }, 2000);
 
   }
-  // {this.props.log.map(action => <List.Item><List.Content>💩 {action}</List.Content></List.Item>)}
+
 
 
   render(){
-
-    let actions = this.props.log.map(action => {
+    let filteredLogs = Array.from(new Set(this.props.log))
+    let actions = filteredLogs.map(action => {
       if(action.includes("Changed")){
         return <List.Item className="list-item"><List.Content>💩 {action}</List.Content></List.Item>
       }else if (action.includes("Fed")){
