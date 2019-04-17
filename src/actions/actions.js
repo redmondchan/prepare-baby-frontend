@@ -21,7 +21,6 @@ export const fetchNames = () => {
 
 export const createUser = (user) => {
   return dispatch => {
-    console.log("Creating User")
     return fetch('http://localhost:3000/api/v1/signup', {
       method: "POST",
       headers: {
@@ -31,8 +30,7 @@ export const createUser = (user) => {
       body: JSON.stringify(user)
     })
     .then(resp => resp.json())
-    // .then(console.log)
-    .then(resp => dispatch(setUserBabyLog(resp)))
+    .then(resp => {dispatch(setUserBabyLog(resp))})
     .catch(console.error)
   }
 }

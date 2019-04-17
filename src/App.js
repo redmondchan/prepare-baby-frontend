@@ -15,6 +15,7 @@ class App extends Component {
 
   componentDidMount(){
     let token = localStorage.token
+    console.log(token)
     token ? this.props.getUser(token) : this.props.history.push('/')
   }
 

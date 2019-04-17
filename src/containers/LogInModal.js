@@ -22,7 +22,7 @@ class LogInModal extends React.Component{
   handleSubmit = (e) => {
     e.preventDefault()
     this.props.findUser({user: this.state})
-    this.props.history.push('/baby')
+    setTimeout(this.props.history.push('/baby'), 300)
   }
 
 

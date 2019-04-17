@@ -5,13 +5,21 @@ import BabyImage from '../components/BabyImage'
 import Log from '../components/Log'
 import ScenarioModal from '../components/ScenarioModal'
 import DropdownMenu from '../components/Dropdown'
-import {Container} from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
-class Parent extends React.Component{
+class Container extends React.Component{
+
+  componentDidMount(){
+    let token = localStorage.token
+    console.log(token)
+    if(token === undefined){
+      this.props.history.push('/')
+    }
+  }
 
 
   render(){
+    console.log(localStorage.token)
     return(
       <div className="container">
 
@@ -32,4 +40,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Parent)
+export default connect(mapStateToProps)(Container)

@@ -12,7 +12,7 @@ import { findUser } from '../actions/actions'
 
 
 
-class Landing extends React.Component{
+class LandingTest extends React.Component{
 
   state={
     username: "",
@@ -142,4 +142,4 @@ const mapStateToProps = (state) =>{
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Landing))
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(LandingTest))

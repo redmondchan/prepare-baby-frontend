@@ -3,7 +3,7 @@ import { Dropdown, Icon } from 'semantic-ui-react'
 import StatsModal from './StatsModal'
 import {connect} from 'react-redux'
 import { logOut } from '../actions/actions'
-import { withRouter } from 'react-router'
+import { withRouter, Redirect } from 'react-router-dom'
 
 class DropdownMenu extends React.Component {
   state = {
@@ -17,6 +17,7 @@ class DropdownMenu extends React.Component {
   handleLogOut = () => {
     this.props.logOut()
     this.props.history.push('/')
+    // return <Redirect to="/" />)
   }
 
   render(){
@@ -30,6 +31,7 @@ class DropdownMenu extends React.Component {
           </Dropdown.Item>
           <Dropdown.Item onClick={this.handleLogOut}>
             <Icon name='hand peace outline' />
+            // <a href="/">Log Out</a>
             <span className='text'>Log Out</span>
           </Dropdown.Item>
         </Dropdown.Menu>

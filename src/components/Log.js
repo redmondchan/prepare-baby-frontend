@@ -14,7 +14,6 @@ class Log extends React.Component {
   }
 
   componentDidMount(){
-    console.log(localStorage.token)
     let updatingHp = () => {
         let baby = this.props.baby
         let currentDate = Math.floor(new Date().getTime()/60000)
