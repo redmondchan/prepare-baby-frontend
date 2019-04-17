@@ -13,7 +13,7 @@ class Parent extends React.Component{
 
   render(){
     return(
-      <Container fluid textAlign='center'>
+      <div className="container">
 
         <ScenarioModal />
         <DropdownMenu />
@@ -21,7 +21,7 @@ class Parent extends React.Component{
         <HPBar />
         <BabyImage />
         <Log />
-      </Container>
+      </div>
     )
   }
 }

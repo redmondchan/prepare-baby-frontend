@@ -59,30 +59,30 @@ class Log extends React.Component {
 
     let actions = this.props.log.map(action => {
       if(action.includes("Changed")){
-        return <List.Item><List.Content>💩 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content>💩 {action}</List.Content></List.Item>
       }else if (action.includes("Fed")){
-        return <List.Item><List.Content>🍼 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content>🍼 {action}</List.Content></List.Item>
       }else if (action.includes("Hungry")){
-        return <List.Item><List.Content>🤤 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content>🤤 {action}</List.Content></List.Item>
       }else if (action.includes("pooped")){
-        return <List.Item><List.Content>🤢 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content>🤢 {action}</List.Content></List.Item>
       }else if (action.includes("Wasted")){
-        return <List.Item><List.Content>💸 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content>💸 {action}</List.Content></List.Item>
       }else if (action.includes("Forced")){
-        return <List.Item><List.Content>🤭 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content>🤭 {action}</List.Content></List.Item>
       }
     })
 
     return(
       <div>
         <div className="logs">
-          <Segment size={"medium"} inverted className="log-list">
-            <List divided inverted relaxed>
+          <Segment size={"medium"} className="log-list">
+            <List className="log-list" divided relaxed>
             {actions}
             </List>
           </Segment>
         </div>
-        <Grid className="buttons">
+        <Grid className="action-buttons">
           <Grid.Row>
             <Button className="action-button" onClick={() => {this.props.createLog(this.props.baby, "feed"); this.props.updateHp(this.props.baby, "feed", 10)}}>Feed Me</Button>
           </Grid.Row>
