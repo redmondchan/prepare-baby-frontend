@@ -1,11 +1,9 @@
-export const feedBaby = () => ({type: 'FEED_BABY'})
-export const changeDiaper = () => ({type: 'CHANGE_DIAPER'})
 export const setUserBabyLog = (user) => ({type:'SET_USER_BABY_LOG', payload: user})
 export const hungryBaby = (baby) => ({type: 'HUNGRY_BABY', payload: baby})
+export const logOut = () => ({type:'LOG_OUT'})
 const setLog = (tasks) => ({type: 'SET_LOG', payload: tasks})
 const addLog = (task) => ({type: 'ADD_LOG', payload: task})
 const getNames = (names) => ({type: 'GET_NAMES', payload: names})
-export const logOut = () => ({type:'LOG_OUT'})
 
 export const fetchNames = () => {
   return dispatch => {
@@ -30,7 +28,12 @@ export const createUser = (user) => {
       body: JSON.stringify(user)
     })
     .then(resp => resp.json())
-    .then(resp => {dispatch(setUserBabyLog(resp))})
+    .then(resp => {
+      if(resp.jwt){
+        localStorage.setItem("token", resp.jwt)
+        dispatch(setUserBabyLog(resp))
+      }
+    })
     .catch(console.error)
   }
 }
@@ -47,7 +50,11 @@ export const findUser = (user) => {
       body: JSON.stringify(user)
     })
     .then(resp => resp.json())
-    .then(resp => dispatch(setUserBabyLog(resp)))
+    .then(resp => {
+      if(resp.jwt){
+        localStorage.setItem("token", resp.jwt)
+        dispatch(setUserBabyLog(resp))
+    }})
     .catch(console.error)
   }
 }
@@ -60,12 +67,6 @@ export const updateHp = (baby, task, num) => {
     let time = today.getHours() + ":" + today.getMinutes()
     let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
     let newHp, newFeed, newFeedMissed, newDiaperMissed, newDiaper, newForceFeed, newForceDiaper, feedMoney, diaperMoney = 0
-    // let newFeed = 0
-    // let newFeedMissed = 0
-    // let newDiaperMissed = 0
-    // let newDiaper = 0
-    // let newForceFeed = 0
-    // let newForceDiaper = 0
     let jsonBody = {}
     if(task === 'hungry'){
       newHp = baby.hp - num
@@ -137,7 +138,6 @@ export const updateHp = (baby, task, num) => {
         }
       }
     }
-    console.log(today.getTime())
     return fetch(`http://localhost:3000/api/v1/babies/${baby.id}`, {
       method: "PATCH",
       headers: {
@@ -166,6 +166,20 @@ export const createLog = (baby, task) => {
       newTask = `Hungry baby at ${time} on ${date}`
     }else if (task === "dirty"){
       newTask = `Baby pooped at ${time} on ${date}`
+    }else if (task === "starving"){
+      let millisecondsTime = new Date(baby.feed_time).getTime()
+      let newMilliseconds = millisecondsTime + 10800000
+      let oldTime = new Date(newMilliseconds)
+      let fromTime = oldTime.getHours() + ":" + ((oldTime.getMinutes()<10?'0':'') + oldTime.getMinutes())
+      let fromDate = (oldTime.getMonth()+1)+'/'+oldTime.getDate()+'/'+oldTime.getFullYear()
+      newTask = `Hungry baby since ${fromTime} on ${fromDate}`
+    }else if (task === "disgusting"){
+      let millisecondsTime = new Date(baby.diaper_time).getTime()
+      let newMilliseconds = millisecondsTime + 10800000
+      let oldTime = new Date(newMilliseconds)
+      let fromTime = oldTime.getHours() + ":" + ((oldTime.getMinutes()<10?'0':'') + oldTime.getMinutes())
+      let fromDate = (oldTime.getMonth()+1)+'/'+oldTime.getDate()+'/'+oldTime.getFullYear()
+      newTask = `Baby pooped since ${fromTime} on ${fromDate}`
     }else if (task === "feed"){
       if (baby.initialFeed === false){
         newTask = `Fed baby at ${time} on ${date}`
@@ -225,7 +239,6 @@ export const getLogs = (user) => {
 }
 
 export const getUser = (token) => {
-  console.log(token)
   return dispatch => {
     return fetch('http://localhost:3000/api/v1/profile', {
       method: 'GET',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Progress } from 'semantic-ui-react'
+import { Progress } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 
 class HPBar extends React.Component {

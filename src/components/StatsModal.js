@@ -1,7 +1,5 @@
 import React from 'react'
-import { Button, Header, Icon, Modal } from 'semantic-ui-react'
-import Stats from './Stats'
-import PieStats from './PieStats'
+import { Modal } from 'semantic-ui-react'
 import PieStatsFood from './PieStatsFood'
 import PieStatsDiaper from './PieStatsDiaper'
 import PieStatsCost from './PieStatsCost'
