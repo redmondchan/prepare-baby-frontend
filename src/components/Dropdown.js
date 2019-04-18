@@ -17,7 +17,6 @@ class DropdownMenu extends React.Component {
   handleLogOut = () => {
     this.props.logOut()
     this.props.history.push('/')
-    // return <Redirect to="/" />)
   }
 
   render(){
@@ -31,7 +30,6 @@ class DropdownMenu extends React.Component {
           </Dropdown.Item>
           <Dropdown.Item onClick={this.handleLogOut}>
             <Icon name='hand peace outline' />
-            // <a href="/">Log Out</a>
             <span className='text'>Log Out</span>
           </Dropdown.Item>
         </Dropdown.Menu>
