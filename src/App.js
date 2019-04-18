@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import 'semantic-ui-css/semantic.min.css'
 import Container from './containers/Container'
-import SignUp from './containers/SignUp'
 import Landing from './containers/Landing'
-import LandingTest from './containers/LandingTest'
-import LogIn from './containers/LogIn'
 import {Switch, Route} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { getUser } from './actions/actions'
@@ -15,16 +12,13 @@ class App extends Component {
 
   componentDidMount(){
     let token = localStorage.token
-    console.log(token)
     token ? this.props.getUser(token) : this.props.history.push('/')
   }
 
   render() {
     return (
         <Switch>
-          <Route exact path= '/' component={LandingTest} />
-          <Route exact path= '/signup' component={SignUp} />
-          <Route exact path= '/signin' component={LogIn} />
+          <Route exact path= '/' component={Landing} />
           <Route exact path= '/baby' component={Container} />
         </Switch>
     );

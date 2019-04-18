@@ -1,5 +1,4 @@
 import React from 'react'
-import HappinessPoints from '../components/HappinessPoints'
 import HPBar from '../components/HPBar'
 import BabyImage from '../components/BabyImage'
 import Log from '../components/Log'
