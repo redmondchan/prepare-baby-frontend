@@ -12,7 +12,7 @@ class ScenarioModal extends React.Component {
   }
 
   componentDidMount(){
-    let randomNumber = Math.random() >= 0.5
+    let randomNumber = Math.random() >= 0.1
     var question = questions[Math.floor(Math.random()*questions.length)]
     this.setState({open: randomNumber, question: question})
 
@@ -24,7 +24,6 @@ class ScenarioModal extends React.Component {
   }
 
   render(){
-    console.log(this.state.open, questions)
     return(
       <Modal open={this.state.open} size={'tiny'}>
         <Modal.Header>Scenario:</Modal.Header>

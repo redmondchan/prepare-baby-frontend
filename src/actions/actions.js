@@ -61,6 +61,7 @@ export const findUser = (user) => {
 
 export const updateHp = (baby, task, num) => {
   return dispatch => {
+    console.log(baby, task, num)
     let token = localStorage.token
     let today = new Date()
     let currentTime = today.getTime()
@@ -93,15 +94,15 @@ export const updateHp = (baby, task, num) => {
       } else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
-
-        if(differenceMins >= 5){
+        console.log(differenceMins)
+        if(differenceMins >= 1){
           newHp = baby.hp + num
           newFeed = baby.feed + 1
           if(newHp > 100){
              newHp = 100
           }
           jsonBody = {hp: newHp, feed_time: today, hungry_time: today, feed: newFeed, feedMoney: baby.feedMoney + 1}
-        }else if (differenceMins < 5){
+        }else if (differenceMins < 1){
           newHp = baby.hp - num
           newForceFeed = baby.forceFeed + 1
           if(newHp < 0){
@@ -121,14 +122,14 @@ export const updateHp = (baby, task, num) => {
       }else if (baby.initialDiaper){
         let diaperTime = new Date(baby.diaper_time).getTime()
         let differenceMins = (currentTime - diaperTime)/60000
-        if(differenceMins >= 60){
+        if(differenceMins >= 1){
           newHp = baby.hp + num
           newDiaper = baby.diaper + 1
           if(newHp > 100){
              newHp = 100
           }
           jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, diaper: newDiaper, diaperMoney: baby.diaperMoney + 1}
-        }else if(differenceMins < 60){
+        }else if(differenceMins < 1){
           newHp = baby.hp - num
           newForceDiaper = baby.forceiaper + 1
           if(newHp < 0){
@@ -166,20 +167,6 @@ export const createLog = (baby, task) => {
       newTask = `Hungry baby at ${time} on ${date}`
     }else if (task === "dirty"){
       newTask = `Baby pooped at ${time} on ${date}`
-    }else if (task === "starving"){
-      let millisecondsTime = new Date(baby.feed_time).getTime()
-      let newMilliseconds = millisecondsTime + 10800000
-      let oldTime = new Date(newMilliseconds)
-      let fromTime = oldTime.getHours() + ":" + ((oldTime.getMinutes()<10?'0':'') + oldTime.getMinutes())
-      let fromDate = (oldTime.getMonth()+1)+'/'+oldTime.getDate()+'/'+oldTime.getFullYear()
-      newTask = `Hungry baby since ${fromTime} on ${fromDate}`
-    }else if (task === "disgusting"){
-      let millisecondsTime = new Date(baby.diaper_time).getTime()
-      let newMilliseconds = millisecondsTime + 10800000
-      let oldTime = new Date(newMilliseconds)
-      let fromTime = oldTime.getHours() + ":" + ((oldTime.getMinutes()<10?'0':'') + oldTime.getMinutes())
-      let fromDate = (oldTime.getMonth()+1)+'/'+oldTime.getDate()+'/'+oldTime.getFullYear()
-      newTask = `Baby pooped since ${fromTime} on ${fromDate}`
     }else if (task === "feed"){
       if (baby.initialFeed === false){
         newTask = `Fed baby at ${time} on ${date}`

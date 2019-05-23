@@ -17,6 +17,7 @@ class DropdownMenu extends React.Component {
   handleLogOut = () => {
     this.props.logOut()
     this.props.history.push('/')
+    // return <Redirect to="/" />)
   }
 
   render(){
