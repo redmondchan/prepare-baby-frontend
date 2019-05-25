@@ -271,8 +271,8 @@ export const getStreak = (birthdate) => {
       let difference = today - birth
       let oneDay = 1000*60*60*24
       let days = difference/oneDay
-      console.log(Math.round(days))
-      return Math.round(days)
+      console.log(days)
+      return Math.floor(days)
     }
   }
 }
