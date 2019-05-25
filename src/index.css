@@ -182,3 +182,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   height: 44%;
   width: 100%;
 }
+
+.streak {
+  float: right;
+  white-space: pre
+}

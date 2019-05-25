@@ -1,6 +1,7 @@
 export const setUserBabyLog = (user) => ({type:'SET_USER_BABY_LOG', payload: user})
 export const hungryBaby = (baby) => ({type: 'HUNGRY_BABY', payload: baby})
 export const logOut = () => ({type:'LOG_OUT'})
+export const setStreak = (days) => ({type: 'GET_STREAK', payload: days})
 const setLog = (tasks) => ({type: 'SET_LOG', payload: tasks})
 const addLog = (task) => ({type: 'ADD_LOG', payload: task})
 const getNames = (names) => ({type: 'GET_NAMES', payload: names})
@@ -259,5 +260,19 @@ export const postAnswers = (user, value) => {
       },
       body: JSON.stringify(answerBody)
     })
+  }
+}
+
+export const getStreak = (birthdate) => {
+  return dispatch => {
+    if (birthdate !== undefined){
+      let birth = new Date(birthdate).getTime()
+      let today = new Date().getTime()
+      let difference = today - birth
+      let oneDay = 1000*60*60*24
+      let days = difference/oneDay
+      console.log(Math.round(days))
+      return Math.round(days)
+    }
   }
 }
