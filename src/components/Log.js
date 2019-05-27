@@ -1,5 +1,5 @@
 import React from 'react'
-import { updateHp } from '../actions/actions'
+import { updateHp, controlInterval } from '../actions/actions'
 import { createLog } from '../actions/actions'
 import { getLogs } from '../actions/actions'
 
@@ -13,45 +13,59 @@ class Log extends React.Component {
     logs: false
   }
 
+  intervalId = 0
+
   componentDidMount(){
-    console.log(this.props.baby)
-    let updatingHp = () => {
-        let baby = this.props.baby
-        let currentDate = Math.floor(new Date().getTime()/60000)
-        let hungryOldDate = Math.floor((new Date(this.props.baby.hungry_time).getTime())/60000)
-        let dirtyOldDate = Math.floor(new Date(this.props.baby.dirty_time).getTime()/60000)
-        // converting milliseconds to minutes
-        let hungryDifference = (currentDate - hungryOldDate)
-        let dirtyDifference = (currentDate - dirtyOldDate)
-        if(hungryDifference > 1){
-          let x = hungryDifference/1
-          console.log(`hungryDifference : ${hungryDifference}`, "current Date:", new Date(currentDate * 60000), "hungryOldDate:", new Date(hungryOldDate * 60000))
-          this.props.updateHp(baby, "hungry", x)
-          this.props.createLog(this.props.baby, "hungry")
-        }
-        if(dirtyDifference > 1){
-          let x = dirtyDifference/1
-          console.log(`dirtyDifference : ${dirtyDifference}`, "current Date:", new Date(currentDate * 60000), "dirtyOldDate:", new Date(dirtyOldDate * 60000))
-          this.props.updateHp(baby, "dirty", x)
-          this.props.createLog(this.props.baby, "dirty")
-        }
-      };
 
-    setInterval(updatingHp, 10000)
-
-    let lastTime = (new Date()).getTime();
-    setInterval(function() {
-      let currentTime = (new Date()).getTime();
-      if (currentTime > (lastTime + 2000*2)) {  // ignore small delays
-        // Probably just woke up!
-        console.log("wakeup")
-        updatingHp()
-      }
-      lastTime = currentTime;
-    }, 2000);
+    this.intervalId = this.props.controlInterval(this.props.baby)
+    // console.log("set interval", this.props.baby)
+    // let updatingHp = () => {
+    //     console.log("set interval", this.props.baby)
+    //     let baby = this.props.baby
+    //     let currentDate = Math.floor(new Date().getTime()/60000)
+    //     let hungryOldDate = Math.floor((new Date(this.props.baby.hungry_time).getTime())/60000)
+    //     let dirtyOldDate = Math.floor(new Date(this.props.baby.dirty_time).getTime()/60000)
+    //     // converting milliseconds to minutes
+    //     let hungryDifference = (currentDate - hungryOldDate)
+    //     let dirtyDifference = (currentDate - dirtyOldDate)
+    //     if(hungryDifference > 1){
+    //       let x = hungryDifference/1
+    //       console.log(`hungryDifference : ${hungryDifference}`, "current Date:", new Date(currentDate * 60000), "hungryOldDate:", new Date(hungryOldDate * 60000))
+    //       this.props.updateHp(baby, "hungry", x)
+    //       this.props.createLog(this.props.baby, "hungry")
+    //     }
+    //     if(dirtyDifference > 1){
+    //       let x = dirtyDifference/1
+    //       console.log(`dirtyDifference : ${dirtyDifference}`, "current Date:", new Date(currentDate * 60000), "dirtyOldDate:", new Date(dirtyOldDate * 60000))
+    //       this.props.updateHp(baby, "dirty", x)
+    //       this.props.createLog(this.props.baby, "dirty")
+    //     }
+    //   };
+    //
+    // let intervalHp = setInterval(updatingHp, 10000)
+    //
+    // if(this.props.baby === {}){
+    //   clearInterval(intervalHp)
+    //   console.log("clearing interval")
+    // }
+    //
+    // let lastTime = (new Date()).getTime();
+    // setInterval(function() {
+    //   let currentTime = (new Date()).getTime();
+    //   if (currentTime > (lastTime + 2000*2)) {  // ignore small delays
+    //     // Probably just woke up!
+    //     console.log("wakeup")
+    //     updatingHp()
+    //   }
+    //   lastTime = currentTime;
+    // }, 2000);
 
   }
 
+  componentWillUnmount(){
+    console.log("willunmount", this.intervalId)
+    clearInterval(this.intervalId)
+  }
 
 
   render(){
@@ -98,6 +112,7 @@ const mapDispatchToProps = (dispatch) => ({
   createLog: (baby, task) => dispatch(createLog(baby, task)),
   getLogs: (user) => dispatch(getLogs(user)),
   updateHp: (baby, task, num) => dispatch(updateHp(baby, task, num)),
+  controlInterval: (baby) => dispatch(controlInterval(baby))
 })
 
 const mapStateToProps = (state) => {

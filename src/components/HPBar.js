@@ -1,5 +1,5 @@
 import React from 'react'
-import { Progress } from 'semantic-ui-react'
+import { Icon, Progress } from 'semantic-ui-react'
 import { connect } from 'react-redux'
 import { getStreak } from '../actions/actions'
 
@@ -10,7 +10,7 @@ class HPBar extends React.Component {
     return (
       <div className="hp-div">
         <div className="hp-text">
-          <h1>Happiness Points: {this.props.baby.hp}<span className="streak">Streak: {this.props.getStreak(this.props.baby.birthdate)}               </span></h1>
+          <h1>Happiness Points: {this.props.baby.hp}<span className="streak"><Icon name="heartbeat"/> {this.props.getStreak(this.props.baby.birthdate)}               </span></h1>
         </div>
         <Progress percent={this.props.baby.hp} indicating progress className="hp-bar"/>
       </div>

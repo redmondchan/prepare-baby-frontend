@@ -28,7 +28,14 @@ const reducer = (state = initialState, action) => {
     }
     case('LOG_OUT'):{
       localStorage.clear()
-      return { log: [], updatedlog: [], user: {}, baby: {}, names: [] }
+      return {
+          log: [],
+          updatedlog: [],
+          user: {},
+          baby: {},
+          names: [],
+          days: 0
+      }
     }
     case('SET_STREAK'):{
       return {...state, days: action.payload}

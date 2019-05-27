@@ -294,3 +294,13 @@ export const getStreak = (birthdate) => {
     }
   }
 }
+
+export const controlInterval = (baby) => {
+  return dispatch => {
+    let x
+    if(baby.hasOwnProperty('hp')){
+      let x = setInterval( () => console.log("startinggterval", baby), 10000)
+      return x
+    }
+  }
+}
