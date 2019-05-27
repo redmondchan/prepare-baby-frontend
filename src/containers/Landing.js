@@ -38,8 +38,8 @@ class Landing extends React.Component{
 
   handleLogIn = (e) => {
     e.preventDefault()
-    this.props.findUser({user: this.state})
-    setTimeout(()=>this.props.history.push('/baby'), 500)
+    this.props.findUser({user: this.state}).then(() => this.props.history.push('/baby'))
+    // setTimeout(()=>this.props.history.push('/baby'), 1000)
   }
 
 
