@@ -101,7 +101,7 @@ export const updateHp = (baby, task, num) => {
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
         console.log(differenceMins)
-        if(differenceMins >= 1){
+        if(differenceMins >= 2){
           newHp = baby.hp + num
           newFeed = baby.feed + 1
           if(newHp > 100){
@@ -112,7 +112,7 @@ export const updateHp = (baby, task, num) => {
           }else {
             jsonBody = {hp: newHp, feed_time: today, hungry_time: today, feed: newFeed, feedMoney: baby.feedMoney + 1}
           }
-        }else if (differenceMins < 1){
+        }else if (differenceMins < 2){
           newHp = baby.hp - num
           newForceFeed = baby.forceFeed + 1
           if(newHp <= 0){
@@ -192,9 +192,9 @@ export const createLog = (baby, task) => {
       }else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
-        if(differenceMins >= 60){
+        if(differenceMins >= 1){
           newTask = `Fed baby at ${time} on ${date}`
-        }else if (differenceMins < 60){
+        }else if (differenceMins < 1){
           newTask = `Forced baby to eat at ${time} on ${date}`
         }
       }
@@ -204,9 +204,9 @@ export const createLog = (baby, task) => {
       }else if (baby.initialDiaper){
         let diaperTime = new Date(baby.diaper_time).getTime()
         let differenceMins = (currentTime - diaperTime)/60000
-        if(differenceMins >= 60){
+        if(differenceMins >= 1){
           newTask = `Changed diaper at ${time} on ${date}`
-        }else if(differenceMins < 60){
+        }else if(differenceMins < 1){
           newTask = `Wasted baby's time by changing diaper too early at ${time} on ${date}`
         }
       }
@@ -290,17 +290,38 @@ export const getStreak = (birthdate) => {
       let oneDay = 1000*60*60*24
       let days = difference/oneDay
       console.log(days)
-      return Math.floor(days)
+      return Math.round(days)
     }
   }
 }
 
 export const controlInterval = (baby) => {
   return dispatch => {
-    let x
+    let updatingHp = () => {
+        console.log("set interval", baby)
+        let currentDate = Math.floor(new Date().getTime()/60000)
+        let hungryOldDate = Math.floor((new Date(baby.hungry_time).getTime())/60000)
+        let dirtyOldDate = Math.floor(new Date(baby.dirty_time).getTime()/60000)
+        // converting milliseconds to minutes
+        let hungryDifference = (currentDate - hungryOldDate)
+        let dirtyDifference = (currentDate - dirtyOldDate)
+        if(hungryDifference >= 2){
+          let x = Math.floor(hungryDifference/1)
+          dispatch(updateHp(baby, "hungry", x))
+          dispatch(createLog(baby, "hungry"))
+        }
+        if(dirtyDifference >= 1){
+          let x = Math.floor(dirtyDifference/1)
+          dispatch(updateHp(baby, "dirty", x))
+          dispatch(createLog(baby, "dirty"))
+        }
+      };
+
+    let y
+
     if(baby.hasOwnProperty('hp')){
-      let x = setInterval( () => console.log("startinggterval", baby), 10000)
-      return x
+      let y = setInterval(updatingHp, 10000)
+      return y
     }
   }
 }
