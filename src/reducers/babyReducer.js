@@ -18,7 +18,7 @@ const reducer = (state = initialState, action) => {
       return {...state, log: action.payload}
     }
     case('ADD_LOG'):{
-      return {...state, log: [action.payload, ...state.log]}
+      return {...state, log: [...state.log, action.payload]}
     }
     case('HUNGRY_BABY'):{
       return {...state, baby: action.payload}
