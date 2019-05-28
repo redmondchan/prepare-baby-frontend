@@ -17,6 +17,7 @@ class DropdownMenu extends React.Component {
   handleLogOut = () => {
     this.props.logOut()
     this.props.history.push('/')
+    // return <Redirect to="/" />)
   }
 
   render(){
@@ -42,4 +43,9 @@ const mapDispatchToProps = (dispatch) => ({
   logOut: () => dispatch(logOut())
 })
 
-export default connect(null, mapDispatchToProps)(withRouter(DropdownMenu))
+const mapStateToProps = (state) => {
+  return{
+    baby: state.baby
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(DropdownMenu))

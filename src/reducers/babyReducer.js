@@ -3,7 +3,8 @@ const initialState = {
     updatedlog: [],
     user: {},
     baby: {},
-    names: []
+    names: [],
+    days: 0
 }
 
 const reducer = (state = initialState, action) => {
@@ -17,7 +18,7 @@ const reducer = (state = initialState, action) => {
       return {...state, log: action.payload}
     }
     case('ADD_LOG'):{
-      return {...state, log: [action.payload, ...state.log]}
+      return {...state, log: [...state.log, action.payload]}
     }
     case('HUNGRY_BABY'):{
       return {...state, baby: action.payload}
@@ -27,7 +28,17 @@ const reducer = (state = initialState, action) => {
     }
     case('LOG_OUT'):{
       localStorage.clear()
-      return { log: [], updatedlog: [], user: {}, baby: {}, names: [] }
+      return {
+          log: [],
+          updatedlog: [],
+          user: {},
+          baby: {},
+          names: [],
+          days: 0
+      }
+    }
+    case('SET_STREAK'):{
+      return {...state, days: action.payload}
     }
     default:
     return state

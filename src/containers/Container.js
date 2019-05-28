@@ -18,7 +18,6 @@ class Container extends React.Component{
 
 
   render(){
-    console.log(localStorage.token)
     return(
       <div className="container">
 
