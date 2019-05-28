@@ -8,7 +8,7 @@ Web application that simulates a small aspect of having a baby.
 * Decide what to do at given scenarios
 
 # Setup
-Clone this [frontend repo](https://github.com/redmondchan/prepare-baby-frontend) and the backend repo](https://github.com/redmondchan/prepare-baby-backend) and .
+Clone this [frontend repo](https://github.com/redmondchan/prepare-baby-frontend) and the [backend repo](https://github.com/redmondchan/prepare-baby-backend) and .
 Go to the root directory of the backend and run ```bundle install``` to install backend dependencies.
 Go to the root directory of the frontend and run ```npm install``` to install frontend dependencies.
 
