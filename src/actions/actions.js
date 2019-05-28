@@ -101,7 +101,7 @@ export const updateHp = (baby, task, num) => {
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
         console.log(differenceMins)
-        if(differenceMins >= 2){
+        if(differenceMins >= 5){
           newHp = baby.hp + num
           newFeed = baby.feed + 1
           if(newHp > 100){
@@ -112,7 +112,7 @@ export const updateHp = (baby, task, num) => {
           }else {
             jsonBody = {hp: newHp, feed_time: today, hungry_time: today, feed: newFeed, feedMoney: baby.feedMoney + 1}
           }
-        }else if (differenceMins < 2){
+        }else if (differenceMins < 5){
           newHp = baby.hp - num
           newForceFeed = baby.forceFeed + 1
           if(newHp <= 0){
@@ -192,7 +192,7 @@ export const createLog = (baby, task) => {
       }else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
-        if(differenceMins >= 1){
+        if(differenceMins >= 5){
           newTask = `Fed baby at ${time} on ${date}`
         }else if (differenceMins < 1){
           newTask = `Forced baby to eat at ${time} on ${date}`
@@ -305,7 +305,7 @@ export const controlInterval = (baby) => {
         // converting milliseconds to minutes
         let hungryDifference = (currentDate - hungryOldDate)
         let dirtyDifference = (currentDate - dirtyOldDate)
-        if(hungryDifference >= 2){
+        if(hungryDifference >= 5){
           let x = Math.floor(hungryDifference/1)
           dispatch(updateHp(baby, "hungry", x))
           dispatch(createLog(baby, "hungry"))

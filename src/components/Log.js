@@ -16,9 +16,8 @@ class Log extends React.Component {
   intervalId = 0
 
   componentDidMount(){
-
+    console.log("interval mountingggg", this.intervalId)
     // this.intervalId = this.props.controlInterval(this.props.baby)
-    console.log("set interval", this.props.baby)
     let updatingHp = () => {
         console.log("set interval", this.props.baby)
         let baby = this.props.baby
@@ -28,7 +27,7 @@ class Log extends React.Component {
         // converting milliseconds to minutes
         let hungryDifference = (currentDate - hungryOldDate)
         let dirtyDifference = (currentDate - dirtyOldDate)
-        if(hungryDifference >= 2){
+        if(hungryDifference >= 5){
           let x = hungryDifference/1
           console.log(`hungryDifference : ${hungryDifference}`, "current Date:", new Date(currentDate * 60000), "hungryOldDate:", new Date(hungryOldDate * 60000))
           this.props.updateHp(baby, "hungry", x)
@@ -42,7 +41,8 @@ class Log extends React.Component {
         }
       };
 
-    let intervalHp = setInterval(updatingHp, 10000)
+    this.intervalId = setInterval(updatingHp, 5000)
+    console.log(this.intervalId)
     //
     // if(this.props.baby === {}){
     //   clearInterval(intervalHp)
