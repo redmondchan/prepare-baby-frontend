@@ -18,8 +18,8 @@ class PieStatsCost extends React.Component {
 				indexLabel: "{label}",
 				startAngle: -90,
 				dataPoints: [
-					{ y: this.props.baby.feedMoney, label: "Food Cost" },
-					{ y: this.props.baby.diaperMoney * 0.25, label: "Diaper Cost" }
+					{ y: this.props.baby.feedMoney * 1.5, label: "Food Cost" },
+					{ y: this.props.baby.diaperMoney * 0.30, label: "Diaper Cost" }
 				]
 			}]
 		}

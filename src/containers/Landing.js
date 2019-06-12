@@ -5,7 +5,7 @@ import { fetchNames, controlInterval } from '../actions/actions'
 import { createUser } from '../actions/actions'
 import { withRouter } from 'react-router'
 import { Link } from 'react-router-dom'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Form } from 'semantic-ui-react'
 import { findUser } from '../actions/actions'
 
 
@@ -14,7 +14,8 @@ class Landing extends React.Component{
 
   state={
     username: "",
-    password: ""
+    password: "",
+    email: ""
   }
 
   componentDidMount(){
@@ -102,22 +103,42 @@ class Landing extends React.Component{
             <Modal.Header>Sign Up</Modal.Header>
               <Modal.Content>
               <Modal.Description>
-        				<form onSubmit={(event) => this.handleSignUp(event)}>
-        						<input type="text" name= "username" className="form-control" placeholder="username" onChange={(event) => this.handleChange(event)} />
-        						<input type="password" name="password" className="form-control" placeholder="password" onChange={(event) => this.handleChange(event)} />
-        						<input type="submit" value="Sign Up" className="btn float-right login_btn"/>
-        				</form>
+        				<Form className="form" onSubmit={(event) => this.handleSignUp(event)}>
+                  <Form.Field>
+                    <label>Username</label>
+                    <input type="text" name= "username" placeholder="username" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Email</label>
+                    <input type="text" name= "email" placeholder="email" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="password" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                    <Button type='submit'>Sign Up</Button>
+        				</Form>
                 </Modal.Description>
               </Modal.Content>
           </Modal>
-          <Modal trigger={<Button>Log In</Button>} closeIcon>
-            <Modal.Header>Log In</Modal.Header>
+          <Modal className="center-form" trigger={<Button>Log In</Button>} closeIcon>
+            <Modal.Header className="form">Log In</Modal.Header>
             <Modal.Content>
-                <form onSubmit={(event) => this.handleLogIn(event)}>
-                      <input type="text" name= "username" className="form-control" placeholder="username" onChange={(event) => this.handleChange(event)} />
-                      <input type="password" name="password" className="form-control" placeholder="password" onChange={(event) => this.handleChange(event)} />
-                      <input type="submit" value="Log In" className="btn float-right login_btn"/>
-                </form>
+                <Form onSubmit={(event) => this.handleLogIn(event)}>
+                  <Form.Field>
+                    <label>Username</label>
+                    <input type="text" name= "username" placeholder="username" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Email</label>
+                    <input type="text" name= "email" placeholder="email" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="password" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Button type='submit'>Submit</Button>
+                </Form>
             </Modal.Content>
           </Modal>
         </div>

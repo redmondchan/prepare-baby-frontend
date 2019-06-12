@@ -59,6 +59,10 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   transition: width .2s ease-in;
 }
 
+.center-form {
+  text-align: center;
+}
+
 /* .log-list {
   max-height: 30%;
   max-width: 75%;
