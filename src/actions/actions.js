@@ -148,7 +148,7 @@ export const updateHp = (baby, task, num) => {
           }
         }else if(differenceMins < 1){
           newHp = baby.hp - num
-          newForceDiaper = baby.forceiaper + 1
+          newForceDiaper = baby.forceDiaper + 1
           if(newHp <= 0){
             newHp = 0
             jsonBody = {hp: newHp, forceDiaper: newForceDiaper, birthdate: today}
