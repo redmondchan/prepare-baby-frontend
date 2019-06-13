@@ -130,10 +130,6 @@ class Landing extends React.Component{
                     <input type="text" name= "username" placeholder="username" onChange={(event) => this.handleChange(event)} />
                   </Form.Field>
                   <Form.Field>
-                    <label>Email</label>
-                    <input type="text" name= "email" placeholder="email" onChange={(event) => this.handleChange(event)} />
-                  </Form.Field>
-                  <Form.Field>
                     <label>Password</label>
                     <input type="password" name="password" placeholder="password" onChange={(event) => this.handleChange(event)} />
                   </Form.Field>
