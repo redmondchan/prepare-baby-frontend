@@ -34,12 +34,12 @@ class Landing extends React.Component{
     e.preventDefault()
     let today = new Date()
     let name = this.props.names[Math.floor(Math.random() * this.props.names.length)]
-    this.props.createUser({user: {username: this.state.username, password: this.state.password, javascript_time: `${today}`, baby_name: name} }).then(()=>this.props.history.push("/baby"))
+    this.props.createUser({user: {username: this.state.username, email: this.state.email, password: this.state.password, javascript_time: `${today}`, baby_name: name} }).then(()=>this.props.history.push("/baby"))
   }
 
   handleLogIn = (e) => {
     e.preventDefault()
-    this.props.findUser({user: this.state}).then(() => this.props.history.push('/baby'))
+    this.props.findUser({user: {username: this.state.username, password: this.state.password}}).then(() => this.props.history.push('/baby'))
     // setTimeout(()=>this.props.history.push('/baby'), 1000)
   }
 
