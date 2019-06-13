@@ -137,7 +137,7 @@ class Landing extends React.Component{
                     <label>Password</label>
                     <input type="password" name="password" placeholder="password" onChange={(event) => this.handleChange(event)} />
                   </Form.Field>
-                  <Button type='submit'>Submit</Button>
+                  <Button type='submit'>Log In</Button>
                 </Form>
             </Modal.Content>
           </Modal>
