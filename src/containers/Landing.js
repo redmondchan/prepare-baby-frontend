@@ -99,11 +99,11 @@ class Landing extends React.Component{
         <div className="button-container">
         <div className="button-header"></div>
         <div className="particles-button">
-          <Modal trigger={<Button>Sign Up</Button>} closeIcon>
-            <Modal.Header>Sign Up</Modal.Header>
-              <Modal.Content>
+          <Modal size={'mini'} trigger={<Button>Sign Up</Button>} closeIcon>
+            <Modal.Header className="center-form">Sign Up</Modal.Header>
+              <Modal.Content className="center-form">
               <Modal.Description>
-        				<Form className="form" onSubmit={(event) => this.handleSignUp(event)}>
+        				<Form onSubmit={(event) => this.handleSignUp(event)}>
                   <Form.Field>
                     <label>Username</label>
                     <input type="text" name= "username" placeholder="username" onChange={(event) => this.handleChange(event)} />
@@ -121,9 +121,9 @@ class Landing extends React.Component{
                 </Modal.Description>
               </Modal.Content>
           </Modal>
-          <Modal className="center-form" trigger={<Button>Log In</Button>} closeIcon>
-            <Modal.Header className="form">Log In</Modal.Header>
-            <Modal.Content>
+          <Modal className="landing-form" size={'mini'} trigger={<Button>Log In</Button>} closeIcon>
+            <Modal.Header className="center-form">Log In</Modal.Header>
+            <Modal.Content className="center-form">
                 <Form onSubmit={(event) => this.handleLogIn(event)}>
                   <Form.Field>
                     <label>Username</label>
