@@ -289,33 +289,3 @@ export const getStreak = (birthdate) => {
     }
   }
 }
-
-export const controlInterval = (baby) => {
-  return dispatch => {
-    let updatingHp = () => {
-        let currentDate = Math.floor(new Date().getTime()/60000)
-        let hungryOldDate = Math.floor((new Date(baby.hungry_time).getTime())/60000)
-        let dirtyOldDate = Math.floor(new Date(baby.dirty_time).getTime()/60000)
-        // converting milliseconds to minutes
-        let hungryDifference = (currentDate - hungryOldDate)
-        let dirtyDifference = (currentDate - dirtyOldDate)
-        if(hungryDifference >= 5){
-          let x = Math.floor(hungryDifference/1)
-          dispatch(updateHp(baby, "hungry", x))
-          dispatch(createLog(baby, "hungry"))
-        }
-        if(dirtyDifference >= 1){
-          let x = Math.floor(dirtyDifference/1)
-          dispatch(updateHp(baby, "dirty", x))
-          dispatch(createLog(baby, "dirty"))
-        }
-      };
-
-    let y
-
-    if(baby.hasOwnProperty('hp')){
-      let y = setInterval(updatingHp, 10000)
-      return y
-    }
-  }
-}

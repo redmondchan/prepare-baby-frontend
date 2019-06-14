@@ -1,7 +1,7 @@
 import React from 'react'
 import Particles from 'react-particles-js'
 import { connect } from 'react-redux'
-import { fetchNames, controlInterval } from '../actions/actions'
+import { fetchNames } from '../actions/actions'
 import { createUser } from '../actions/actions'
 import { withRouter } from 'react-router'
 import { Button, Modal, Form } from 'semantic-ui-react'
@@ -19,7 +19,6 @@ class Landing extends React.Component{
 
   componentDidMount(){
     this.props.fetchNames()
-    this.props.controlInterval(this.props.baby)
   }
 
   handleChange = (e) => {
@@ -145,8 +144,7 @@ class Landing extends React.Component{
 const mapDispatchToProps = dispatch => ({
   fetchNames: () => dispatch(fetchNames()),
   createUser: (user) => dispatch(createUser(user)),
-  findUser: (user) => dispatch(findUser(user)),
-  controlInterval: (baby) => dispatch(controlInterval(baby))
+  findUser: (user) => dispatch(findUser(user))
 })
 
 const mapStateToProps = (state) =>{

@@ -1,5 +1,5 @@
 import React from 'react'
-import { updateHp, controlInterval } from '../actions/actions'
+import { updateHp } from '../actions/actions'
 import { createLog } from '../actions/actions'
 import { getLogs } from '../actions/actions'
 
@@ -48,17 +48,17 @@ class Log extends React.Component {
     let filteredLogs = Array.from(new Set(this.props.log)).reverse()
     let actions = filteredLogs.map(action => {
       if(action.includes("Changed")){
-        return <List.Item className="list-item"><List.Content>💩 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content><span role="img" aria-label="poop">💩</span> {action}</List.Content></List.Item>
       }else if (action.includes("Fed")){
-        return <List.Item className="list-item"><List.Content>🍼 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content><span role="img" aria-label="baby bottle">🍼</span> {action}</List.Content></List.Item>
       }else if (action.includes("Hungry")){
-        return <List.Item className="list-item"><List.Content>🤤 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content><span role="img" aria-label="poop">🤤</span> {action}</List.Content></List.Item>
       }else if (action.includes("pooped")){
-        return <List.Item className="list-item"><List.Content>🤢 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content><span role="img" aria-label="green nauseous face">🤢</span> {action}</List.Content></List.Item>
       }else if (action.includes("Wasted")){
-        return <List.Item className="list-item"><List.Content>💸 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content><span role="img" aria-label="money flying away">💸</span> {action}</List.Content></List.Item>
       }else if (action.includes("Forced")){
-        return <List.Item className="list-item"><List.Content>🤭 {action}</List.Content></List.Item>
+        return <List.Item className="list-item"><List.Content><span role="img" aria-label="hand covering mouth">🤭</span> {action}</List.Content></List.Item>
       }
     })
 
@@ -87,8 +87,7 @@ class Log extends React.Component {
 const mapDispatchToProps = (dispatch) => ({
   createLog: (baby, task) => dispatch(createLog(baby, task)),
   getLogs: (user) => dispatch(getLogs(user)),
-  updateHp: (baby, task, num) => dispatch(updateHp(baby, task, num)),
-  controlInterval: (baby) => dispatch(controlInterval(baby))
+  updateHp: (baby, task, num) => dispatch(updateHp(baby, task, num))
 })
 
 const mapStateToProps = (state) => {
