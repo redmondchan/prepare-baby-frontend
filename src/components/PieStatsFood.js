@@ -14,11 +14,11 @@ class PieStatsFood extends React.Component {
 			},
 			data: [{
 				type: "pie",
-				indexLabel: "{label}",
+				indexLabel: "{label}: {y}",
 				startAngle: -90,
 				dataPoints: [
-					{ y: this.props.baby.feed, label: "Remembered to feed baby" },
-					{ y: this.props.baby.feedMissed, label: "Forgot to feed baby" }
+					{ y: this.props.baby.feed, label: "Remembered" },
+					{ y: this.props.baby.feedMissed, label: "Forgot" }
 				]
 			}]
 		}

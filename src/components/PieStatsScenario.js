@@ -14,11 +14,11 @@ class PieStatsScenario extends React.Component {
 			},
 			data: [{
 				type: "pie",
-				indexLabel: "{label}",
+				indexLabel: "{label}: {y}",
 				startAngle: -90,
 				dataPoints: [
-					{ y: this.props.user.selffish, label: "Let someone else watch your baby" },
-					{ y: this.props.user.selfless, label: "Watched your baby" }
+					{ y: this.props.user.selffish, label: "Left" },
+					{ y: this.props.user.selfless, label: "Stayed" }
 				]
 			}]
 		}
