@@ -188,9 +188,9 @@ export const createLog = (baby, task) => {
       }else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
-        if(differenceMins >= 5){
+        if(differenceMins >= 180){
           newTask = `Fed baby at ${time} on ${date}`
-        }else if (differenceMins < 1){
+        }else if (differenceMins < 180){
           newTask = `Forced baby to eat at ${time} on ${date}`
         }
       }
@@ -200,9 +200,9 @@ export const createLog = (baby, task) => {
       }else if (baby.initialDiaper){
         let diaperTime = new Date(baby.diaper_time).getTime()
         let differenceMins = (currentTime - diaperTime)/60000
-        if(differenceMins >= 1){
+        if(differenceMins >= 150){
           newTask = `Changed diaper at ${time} on ${date}`
-        }else if(differenceMins < 1){
+        }else if(differenceMins < 150){
           newTask = `Wasted baby's time by changing diaper too early at ${time} on ${date}`
         }
       }
