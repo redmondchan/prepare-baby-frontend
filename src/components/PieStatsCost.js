@@ -6,7 +6,6 @@ const CanvasJS = CanvasJSReact.CanvasJS
 
 class PieStatsCost extends React.Component {
 	render() {
-		console.log(this.props.baby)
 		const options = {
 			animationEnabled: true,
 			theme: "light1", // "light1", "dark1", "dark2"
@@ -15,11 +14,11 @@ class PieStatsCost extends React.Component {
 			},
 			data: [{
 				type: "pie",
-				indexLabel: "{label}",
+				indexLabel: "{label}: ${y}",
 				startAngle: -90,
 				dataPoints: [
-					{ y: this.props.baby.feedMoney, label: "Food Cost" },
-					{ y: this.props.baby.diaperMoney * 0.25, label: "Diaper Cost" }
+					{ y: this.props.baby.feedMoney * 1.5, label: "Food Cost" },
+					{ y: this.props.baby.diaperMoney * 0.30, label: "Diaper Cost" }
 				]
 			}]
 		}

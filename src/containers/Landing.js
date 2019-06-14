@@ -1,11 +1,10 @@
 import React from 'react'
 import Particles from 'react-particles-js'
 import { connect } from 'react-redux'
-import { fetchNames, controlInterval } from '../actions/actions'
+import { fetchNames } from '../actions/actions'
 import { createUser } from '../actions/actions'
 import { withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
-import { Button, Modal } from 'semantic-ui-react'
+import { Button, Modal, Form } from 'semantic-ui-react'
 import { findUser } from '../actions/actions'
 
 
@@ -14,12 +13,12 @@ class Landing extends React.Component{
 
   state={
     username: "",
-    password: ""
+    password: "",
+    email: ""
   }
 
   componentDidMount(){
     this.props.fetchNames()
-    this.props.controlInterval(this.props.baby)
   }
 
   handleChange = (e) => {
@@ -33,19 +32,17 @@ class Landing extends React.Component{
     e.preventDefault()
     let today = new Date()
     let name = this.props.names[Math.floor(Math.random() * this.props.names.length)]
-    this.props.createUser({user: {username: this.state.username, password: this.state.password, javascript_time: `${today}`, baby_name: name} }).then(()=>this.props.history.push("/baby"))
+    this.props.createUser({user: {username: this.state.username, email: this.state.email, password: this.state.password, javascript_time: `${today}`, baby_name: name} }).then(()=>this.props.history.push("/baby"))
   }
 
   handleLogIn = (e) => {
     e.preventDefault()
-    this.props.findUser({user: this.state}).then(() => this.props.history.push('/baby'))
-    // setTimeout(()=>this.props.history.push('/baby'), 1000)
+    this.props.findUser({user: {username: this.state.username, password: this.state.password}}).then(() => this.props.history.push('/baby'))
   }
 
 
 
   render(){
-    console.log("props", this.props.baby)
     return(
       <div className="particles-container">
       <Particles className="particles-js"
@@ -98,26 +95,42 @@ class Landing extends React.Component{
         <div className="button-container">
         <div className="button-header"></div>
         <div className="particles-button">
-          <Modal trigger={<Button>Sign Up</Button>} closeIcon>
-            <Modal.Header>Sign Up</Modal.Header>
-              <Modal.Content>
+          <Modal size={'mini'} trigger={<Button>Sign Up</Button>} closeIcon>
+            <Modal.Header className="center-form">Sign Up</Modal.Header>
+              <Modal.Content className="center-form">
               <Modal.Description>
-        				<form onSubmit={(event) => this.handleSignUp(event)}>
-        						<input type="text" name= "username" className="form-control" placeholder="username" onChange={(event) => this.handleChange(event)} />
-        						<input type="password" name="password" className="form-control" placeholder="password" onChange={(event) => this.handleChange(event)} />
-        						<input type="submit" value="Sign Up" className="btn float-right login_btn"/>
-        				</form>
+        				<Form onSubmit={(event) => this.handleSignUp(event)}>
+                  <Form.Field>
+                    <label>Username</label>
+                    <input type="text" name= "username" placeholder="username" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Email</label>
+                    <input type="text" name= "email" placeholder="email" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="password" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                    <Button type='submit'>Sign Up</Button>
+        				</Form>
                 </Modal.Description>
               </Modal.Content>
           </Modal>
-          <Modal trigger={<Button>Log In</Button>} closeIcon>
-            <Modal.Header>Log In</Modal.Header>
-            <Modal.Content>
-                <form onSubmit={(event) => this.handleLogIn(event)}>
-                      <input type="text" name= "username" className="form-control" placeholder="username" onChange={(event) => this.handleChange(event)} />
-                      <input type="password" name="password" className="form-control" placeholder="password" onChange={(event) => this.handleChange(event)} />
-                      <input type="submit" value="Log In" className="btn float-right login_btn"/>
-                </form>
+          <Modal className="landing-form" size={'mini'} trigger={<Button>Log In</Button>} closeIcon>
+            <Modal.Header className="center-form">Log In</Modal.Header>
+            <Modal.Content className="center-form">
+                <Form onSubmit={(event) => this.handleLogIn(event)}>
+                  <Form.Field>
+                    <label>Username</label>
+                    <input type="text" name= "username" placeholder="username" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Form.Field>
+                    <label>Password</label>
+                    <input type="password" name="password" placeholder="password" onChange={(event) => this.handleChange(event)} />
+                  </Form.Field>
+                  <Button type='submit'>Log In</Button>
+                </Form>
             </Modal.Content>
           </Modal>
         </div>
@@ -131,8 +144,7 @@ class Landing extends React.Component{
 const mapDispatchToProps = dispatch => ({
   fetchNames: () => dispatch(fetchNames()),
   createUser: (user) => dispatch(createUser(user)),
-  findUser: (user) => dispatch(findUser(user)),
-  controlInterval: (baby) => dispatch(controlInterval(baby))
+  findUser: (user) => dispatch(findUser(user))
 })
 
 const mapStateToProps = (state) =>{

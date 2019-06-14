@@ -6,7 +6,6 @@ const CanvasJS = CanvasJSReact.CanvasJS
 
 class PieStatsScenario extends React.Component {
 	render() {
-		console.log(this.props.user)
 		const options = {
 			animationEnabled: true,
 			theme: "light1", // "light1", "dark1", "dark2"
@@ -15,11 +14,11 @@ class PieStatsScenario extends React.Component {
 			},
 			data: [{
 				type: "pie",
-				indexLabel: "{label}",
+				indexLabel: "{label}: {y}",
 				startAngle: -90,
 				dataPoints: [
-					{ y: this.props.user.selffish, label: "Let someone else watch your baby" },
-					{ y: this.props.user.selfless, label: "Watched your baby" }
+					{ y: this.props.user.selffish, label: "Left" },
+					{ y: this.props.user.selfless, label: "Stayed" }
 				]
 			}]
 		}

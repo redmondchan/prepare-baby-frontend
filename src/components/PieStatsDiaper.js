@@ -14,11 +14,11 @@ class PieStatsDiaper extends React.Component {
 			},
 			data: [{
 				type: "pie",
-				indexLabel: "{label}",
+				indexLabel: "{label}: {y}",
 				startAngle: -90,
 				dataPoints: [
-					{ y: this.props.baby.diaper, label: "Remembered to change diaper" },
-					{ y: this.props.baby.diaperMissed, label: "Forgot to change diaper" }
+					{ y: this.props.baby.diaper, label: "Remembered" },
+					{ y: this.props.baby.diaperMissed, label: "Forgot" }
 				]
 			}]
 		}

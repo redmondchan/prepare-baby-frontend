@@ -62,16 +62,13 @@ export const findUser = (user) => {
 
 export const updateHp = (baby, task, num) => {
   return dispatch => {
-    console.log(baby, task, num)
     let token = localStorage.token
     let today = new Date()
     let currentTime = today.getTime()
-    let time = today.getHours() + ":" + today.getMinutes()
-    let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
-    let newHp, newFeed, newFeedMissed, newDiaperMissed, newDiaper, newForceFeed, newForceDiaper, feedMoney, diaperMoney = 0
+    let newHp, newFeed, newFeedMissed, newDiaperMissed, newDiaper, newForceFeed, newForceDiaper = 0
     let jsonBody = {}
     if(task === 'hungry'){
-      newHp = baby.hp - num
+      newHp = baby.hp - (10 * num)
       newFeedMissed = baby.feedMissed + 1
       if(newHp <= 0){
        newHp = 0
@@ -80,7 +77,7 @@ export const updateHp = (baby, task, num) => {
        jsonBody = {hp: newHp, hungry_time: today, feedMissed: newFeedMissed, feedMoney: baby.feedMoney + 1}
      }
     } else if (task === "dirty") {
-      newHp = baby.hp - num
+      newHp = baby.hp - (10 * num)
       newDiaperMissed = baby.diaperMissed + 1
       if(newHp <= 0){
          newHp = 0
@@ -90,7 +87,7 @@ export const updateHp = (baby, task, num) => {
       }
     }else if (task === "feed"){
       if(baby.initialFeed === false){
-        newHp = baby.hp + num
+        newHp = baby.hp + 10
         newFeed = baby.feed + 1
         if(baby.hp === 0){
           jsonBody = {hp: newHp, feed_time: today, hungry_time: today, initialFeed: true, feed: newFeed, feedMoney: baby.feedMoney + 1, birthdate: today}
@@ -100,9 +97,8 @@ export const updateHp = (baby, task, num) => {
       } else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
-        console.log(differenceMins)
-        if(differenceMins >= 5){
-          newHp = baby.hp + num
+        if(differenceMins >= 180){
+          newHp = baby.hp + 10
           newFeed = baby.feed + 1
           if(newHp > 100){
              newHp = 100
@@ -112,8 +108,8 @@ export const updateHp = (baby, task, num) => {
           }else {
             jsonBody = {hp: newHp, feed_time: today, hungry_time: today, feed: newFeed, feedMoney: baby.feedMoney + 1}
           }
-        }else if (differenceMins < 5){
-          newHp = baby.hp - num
+        }else if (differenceMins < 180){
+          newHp = baby.hp - 10
           newForceFeed = baby.forceFeed + 1
           if(newHp <= 0){
              newHp = 0
@@ -125,7 +121,7 @@ export const updateHp = (baby, task, num) => {
       }
     }else if (task === 'diaper'){
       if(baby.initialDiaper === false){
-        newHp = baby.hp + num
+        newHp = baby.hp + 10
         newDiaper = baby.diaper + 1
         if(baby.hp === 0){
           jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, initialDiaper: true, diaper: newDiaper, diaperMoney: baby.diaperMoney + 1, birthdate: today }
@@ -135,8 +131,8 @@ export const updateHp = (baby, task, num) => {
       }else if (baby.initialDiaper){
         let diaperTime = new Date(baby.diaper_time).getTime()
         let differenceMins = (currentTime - diaperTime)/60000
-        if(differenceMins >= 1){
-          newHp = baby.hp + num
+        if(differenceMins >= 150){
+          newHp = baby.hp + 10
           newDiaper = baby.diaper + 1
           if(newHp > 100){
              newHp = 100
@@ -146,9 +142,9 @@ export const updateHp = (baby, task, num) => {
           } else {
             jsonBody = {hp: newHp, diaper_time: today, dirty_time: today, diaper: newDiaper, diaperMoney: baby.diaperMoney + 1}
           }
-        }else if(differenceMins < 1){
-          newHp = baby.hp - num
-          newForceDiaper = baby.forceiaper + 1
+        }else if(differenceMins < 150){
+          newHp = baby.hp - 10
+          newForceDiaper = baby.forceDiaper + 1
           if(newHp <= 0){
             newHp = 0
             jsonBody = {hp: newHp, forceDiaper: newForceDiaper, birthdate: today}
@@ -192,9 +188,9 @@ export const createLog = (baby, task) => {
       }else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
-        if(differenceMins >= 5){
+        if(differenceMins >= 180){
           newTask = `Fed baby at ${time} on ${date}`
-        }else if (differenceMins < 1){
+        }else if (differenceMins < 180){
           newTask = `Forced baby to eat at ${time} on ${date}`
         }
       }
@@ -204,9 +200,9 @@ export const createLog = (baby, task) => {
       }else if (baby.initialDiaper){
         let diaperTime = new Date(baby.diaper_time).getTime()
         let differenceMins = (currentTime - diaperTime)/60000
-        if(differenceMins >= 1){
+        if(differenceMins >= 150){
           newTask = `Changed diaper at ${time} on ${date}`
-        }else if(differenceMins < 1){
+        }else if(differenceMins < 150){
           newTask = `Wasted baby's time by changing diaper too early at ${time} on ${date}`
         }
       }
@@ -289,39 +285,7 @@ export const getStreak = (birthdate) => {
       let difference = today - birth
       let oneDay = 1000*60*60*24
       let days = difference/oneDay
-      console.log(days)
       return Math.round(days)
-    }
-  }
-}
-
-export const controlInterval = (baby) => {
-  return dispatch => {
-    let updatingHp = () => {
-        console.log("set interval", baby)
-        let currentDate = Math.floor(new Date().getTime()/60000)
-        let hungryOldDate = Math.floor((new Date(baby.hungry_time).getTime())/60000)
-        let dirtyOldDate = Math.floor(new Date(baby.dirty_time).getTime()/60000)
-        // converting milliseconds to minutes
-        let hungryDifference = (currentDate - hungryOldDate)
-        let dirtyDifference = (currentDate - dirtyOldDate)
-        if(hungryDifference >= 5){
-          let x = Math.floor(hungryDifference/1)
-          dispatch(updateHp(baby, "hungry", x))
-          dispatch(createLog(baby, "hungry"))
-        }
-        if(dirtyDifference >= 1){
-          let x = Math.floor(dirtyDifference/1)
-          dispatch(updateHp(baby, "dirty", x))
-          dispatch(createLog(baby, "dirty"))
-        }
-      };
-
-    let y
-
-    if(baby.hasOwnProperty('hp')){
-      let y = setInterval(updatingHp, 10000)
-      return y
     }
   }
 }
