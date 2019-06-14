@@ -65,9 +65,7 @@ export const updateHp = (baby, task, num) => {
     let token = localStorage.token
     let today = new Date()
     let currentTime = today.getTime()
-    let time = today.getHours() + ":" + today.getMinutes()
-    let date = (today.getMonth()+1)+'/'+today.getDate()+'/'+today.getFullYear()
-    let newHp, newFeed, newFeedMissed, newDiaperMissed, newDiaper, newForceFeed, newForceDiaper, feedMoney, diaperMoney = 0
+    let newHp, newFeed, newFeedMissed, newDiaperMissed, newDiaper, newForceFeed, newForceDiaper = 0
     let jsonBody = {}
     if(task === 'hungry'){
       newHp = baby.hp - (10 * num)

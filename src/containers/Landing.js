@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import { fetchNames, controlInterval } from '../actions/actions'
 import { createUser } from '../actions/actions'
 import { withRouter } from 'react-router'
-import { Link } from 'react-router-dom'
 import { Button, Modal, Form } from 'semantic-ui-react'
 import { findUser } from '../actions/actions'
 
