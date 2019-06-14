@@ -80,7 +80,6 @@ export const updateHp = (baby, task, num) => {
      }
     } else if (task === "dirty") {
       newHp = baby.hp - (10 * num)
-      console.log(newHp)
       newDiaperMissed = baby.diaperMissed + 1
       if(newHp <= 0){
          newHp = 0
@@ -100,7 +99,6 @@ export const updateHp = (baby, task, num) => {
       } else if (baby.initialFeed){
         let feedTime = new Date(baby.feed_time).getTime()
         let differenceMins = (currentTime - feedTime)/60000
-        console.log(differenceMins)
         if(differenceMins >= 180){
           newHp = baby.hp + 10
           newFeed = baby.feed + 1
@@ -289,7 +287,6 @@ export const getStreak = (birthdate) => {
       let difference = today - birth
       let oneDay = 1000*60*60*24
       let days = difference/oneDay
-      console.log(days)
       return Math.round(days)
     }
   }
@@ -298,7 +295,6 @@ export const getStreak = (birthdate) => {
 export const controlInterval = (baby) => {
   return dispatch => {
     let updatingHp = () => {
-        console.log("set interval", baby)
         let currentDate = Math.floor(new Date().getTime()/60000)
         let hungryOldDate = Math.floor((new Date(baby.hungry_time).getTime())/60000)
         let dirtyOldDate = Math.floor(new Date(baby.dirty_time).getTime()/60000)

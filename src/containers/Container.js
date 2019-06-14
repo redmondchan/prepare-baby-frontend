@@ -10,7 +10,6 @@ class Container extends React.Component{
 
   componentDidMount(){
     let token = localStorage.token
-    console.log(token)
     if(token === undefined){
       this.props.history.push('/')
     }

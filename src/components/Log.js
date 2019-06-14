@@ -16,10 +16,7 @@ class Log extends React.Component {
   intervalId = 0
 
   componentDidMount(){
-    console.log("interval mountingggg", this.intervalId)
-    // this.intervalId = this.props.controlInterval(this.props.baby)
     let updatingHp = () => {
-        console.log("set interval", this.props.baby)
         let baby = this.props.baby
         let currentDate = Math.floor(new Date().getTime()/60000)
         let hungryOldDate = Math.floor((new Date(this.props.baby.hungry_time).getTime())/60000)
@@ -29,41 +26,20 @@ class Log extends React.Component {
         let dirtyDifference = (currentDate - dirtyOldDate)
         if(hungryDifference >= 180){
           let num = Math.floor(hungryDifference/180)
-          console.log(`hungryDifference : ${hungryDifference}`, "current Date:", new Date(currentDate * 60000), "hungryOldDate:", new Date(hungryOldDate * 60000))
           this.props.updateHp(baby, "hungry", num)
           this.props.createLog(this.props.baby, "hungry")
         }
         if(dirtyDifference >= 150){
           let num = Math.floor(dirtyDifference/150)
-          console.log(`dirtyDifference : ${dirtyDifference}`, "current Date:", new Date(currentDate * 60000), "dirtyOldDate:", new Date(dirtyOldDate * 60000))
           this.props.updateHp(baby, "dirty", num)
           this.props.createLog(this.props.baby, "dirty")
         }
       };
 
     this.intervalId = setInterval(updatingHp, 5000)
-    console.log(this.intervalId)
-    //
-    // if(this.props.baby === {}){
-    //   clearInterval(intervalHp)
-    //   console.log("clearing interval")
-    // }
-    //
-    // let lastTime = (new Date()).getTime();
-    // setInterval(function() {
-    //   let currentTime = (new Date()).getTime();
-    //   if (currentTime > (lastTime + 2000*2)) {  // ignore small delays
-    //     // Probably just woke up!
-    //     console.log("wakeup")
-    //     updatingHp()
-    //   }
-    //   lastTime = currentTime;
-    // }, 2000);
-
   }
 
   componentWillUnmount(){
-    console.log("willunmount", this.intervalId)
     clearInterval(this.intervalId)
   }
 

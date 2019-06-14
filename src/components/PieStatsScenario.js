@@ -6,7 +6,6 @@ const CanvasJS = CanvasJSReact.CanvasJS
 
 class PieStatsScenario extends React.Component {
 	render() {
-		console.log(this.props.user)
 		const options = {
 			animationEnabled: true,
 			theme: "light1", // "light1", "dark1", "dark2"

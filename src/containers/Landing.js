@@ -40,13 +40,11 @@ class Landing extends React.Component{
   handleLogIn = (e) => {
     e.preventDefault()
     this.props.findUser({user: {username: this.state.username, password: this.state.password}}).then(() => this.props.history.push('/baby'))
-    // setTimeout(()=>this.props.history.push('/baby'), 1000)
   }
 
 
 
   render(){
-    console.log("props", this.props.baby)
     return(
       <div className="particles-container">
       <Particles className="particles-js"
