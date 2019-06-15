@@ -20,7 +20,7 @@ export const fetchNames = () => {
 
 export const createUser = (user) => {
   return dispatch => {
-    return fetch('http://localhost:3000/api/v1/signup', {
+    return fetch('https://babygotchi-backend.herokuapp.com//api/v1/signup', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const createUser = (user) => {
 
 export const findUser = (user) => {
   return dispatch => {
-    return fetch('http://localhost:3000/api/v1/login', {
+    return fetch('https://babygotchi-backend.herokuapp.com//api/v1/login', {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
@@ -154,7 +154,7 @@ export const updateHp = (baby, task, num) => {
         }
       }
     }
-    return fetch(`http://localhost:3000/api/v1/babies/${baby.id}`, {
+    return fetch(`https://babygotchi-backend.herokuapp.com//api/v1/babies/${baby.id}`, {
       method: "PATCH",
       headers: {
         'Content-Type': 'application/json',
@@ -207,7 +207,7 @@ export const createLog = (baby, task) => {
         }
       }
     }
-    return fetch('http://localhost:3000/api/v1/logs', {
+    return fetch('https://babygotchi-backend.herokuapp.com//api/v1/logs', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -225,7 +225,7 @@ export const createLog = (baby, task) => {
 export const getLogs = (user) => {
   return dispatch => {
     let token = localStorage.token
-    return fetch('http://localhost:3000/api/v1/logs', {
+    return fetch('https://babygotchi-backend.herokuapp.com//api/v1/logs', {
       method: 'GET',
       headers: {
         Authorization: `Bearer ${token}`
@@ -242,7 +242,7 @@ export const getLogs = (user) => {
 
 export const getUser = (token) => {
   return dispatch => {
-    return fetch('http://localhost:3000/api/v1/profile', {
+    return fetch('https://babygotchi-backend.herokuapp.com//api/v1/profile', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -265,7 +265,7 @@ export const postAnswers = (user, value) => {
     }else if (value === "selfless"){
       answerBody = {selfless: user.selfless + 1}
     }
-    return fetch(`http://localhost:3000/api/v1/users/${user.id}`, {
+    return fetch(`https://babygotchi-backend.herokuapp.com//api/v1/users/${user.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
