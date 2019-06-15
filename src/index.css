@@ -53,6 +53,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   margin-bottom: 25px;
 } */
 
+
 .filler {
   background: #FF0000;
   height: 100%;
@@ -192,4 +193,16 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
 .streak {
   float: right;
   white-space: pre
+}
+
+@media screen and (max-width: 500px) {
+
+  .hp-bar {
+    width: 50%;
+  }
+
+  .hp-text {
+    font-size: small;
+  }
+
 }
