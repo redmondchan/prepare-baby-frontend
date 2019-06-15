@@ -2,6 +2,10 @@
 
 Web application that simulates a small aspect of having a baby.
 
+# Image Credit
+
+[FreeVector.com](https://www.freevector.com/free-baby-cartoon-icons-vectors-21842#)
+
 # Features
 * Keep a baby's happiness above 0 by feeding the baby and changing the diaper in a timely manner
 * View logs of when baby activity
