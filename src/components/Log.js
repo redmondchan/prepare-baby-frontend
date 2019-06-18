@@ -24,12 +24,16 @@ class Log extends React.Component {
         // converting milliseconds to minutes
         let hungryDifference = (currentDate - hungryOldDate)
         let dirtyDifference = (currentDate - dirtyOldDate)
-        if(hungryDifference >= 180){
+        if(hungryDifference >= 180 && dirtyDifference >= 150){
+          let num1 = Math.floor(hungryDifference/180)
+          let num2 = Math.floor(dirtyDifference/150)
+          this.props.updateHp(baby, "hungry", num1).then( () => this.props.updateHp(baby, "dirty", num2))
+          this.props.createLog(this.props.baby, "hungry").then( () => this.props.createLog(this.props.baby, "dirty"))
+        }else if (hungryDifference >= 180){
           let num = Math.floor(hungryDifference/180)
           this.props.updateHp(baby, "hungry", num)
           this.props.createLog(this.props.baby, "hungry")
-        }
-        if(dirtyDifference >= 150){
+        }else if(dirtyDifference >= 150){
           let num = Math.floor(dirtyDifference/150)
           this.props.updateHp(baby, "dirty", num)
           this.props.createLog(this.props.baby, "dirty")
