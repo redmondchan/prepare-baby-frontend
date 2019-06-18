@@ -10,7 +10,7 @@ class PieStatsScenario extends React.Component {
 			animationEnabled: true,
 			theme: "light1", // "light1", "dark1", "dark2"
 			title:{
-				text: "Sceanrio"
+				text: "Scenario"
 			},
 			data: [{
 				type: "pie",
