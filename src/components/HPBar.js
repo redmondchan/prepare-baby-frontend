@@ -9,7 +9,7 @@ class HPBar extends React.Component {
     this.props.getStreak(this.props.baby.birthdate)
     return (
       <div className="hp-div">
-        <div className="hp-text">
+        <div>
           <h1>Happiness Points: {this.props.baby.hp}<span className="streak"><Icon name="heartbeat"/> {this.props.getStreak(this.props.baby.birthdate)}               </span></h1>
         </div>
         <Progress percent={this.props.baby.hp} indicating progress className="hp-bar"/>

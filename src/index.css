@@ -2,78 +2,27 @@
   height: 100%;
 }
 
-body {
-  height: 100vh !important;
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
-}
-
-.container {
-  padding: 1% 0 0 1%;
-  height:100%;
-  background: linear-gradient(to bottom, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 24%, rgba(224,239,249,1) 63%, rgba(181,198,208,1) 93%, rgba(181,198,208,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#b5c6d0', GradientType=0 );
-}
-
-.hp-component {
-  height:10%;
-  left: 20vw !important;
-  width: 350px !important;
-}
-
-.health-bar {
-  /* position: relative; */
-  height: 20px;
-  width: 350px;
-  border-radius: 50px;
-  border: 1px solid #333;
-}
-
-.hp-bar {
-  width: 25%;
-}
-
-.hp-div{
-  width: 100%;
-  text-align: left;
-}
-
-/* .hp-text{
-  float: left;
-  margin-bottom: 25px;
-} */
-
-
-.filler {
-  background: #FF0000;
-  height: 100%;
-  border-radius: inherit;
-  transition: width .2s ease-in;
-}
-
-.center-form {
-  text-align: center;
-}
-
-/* .log-list {
+.action-buttons {
+  float: right;
   max-height: 30%;
-  max-width: 75%;
-  overflow-y: scroll;
-  position: absolute;
-  bottom: 0;
-} */
+  width: 25%;
+  justify-content: center !important;
+}
+
+
+.action-button {
+  display: block !important;
+  justify-content: center !important;
+}
+
 .baby-container {
   height: 63%;
+}
+
+.baby-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .baby-name {
@@ -96,10 +45,56 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   height: auto
 }
 
-.baby-image {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+body {
+  height: 100vh !important;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.button-header {
+  height: 44%;
+  width: 100%;
+}
+.button-container {
+  height: 100%;
+}
+.button-footer {
+  height: 44%;
+  width: 100%;
+}
+
+.center-form {
+  text-align: center;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.container {
+  padding: 1% 0 0 1%;
+  height:100%;
+  background: linear-gradient(to bottom, rgba(242,246,248,1) 0%, rgba(216,225,231,1) 24%, rgba(224,239,249,1) 63%, rgba(181,198,208,1) 93%, rgba(181,198,208,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', endColorstr='#b5c6d0', GradientType=0 );
+}
+
+.dropdown {
+  float: right;
+}
+
+.hp-bar {
+  width: 25%;
+}
+
+.hp-div{
+  width: 100%;
+  text-align: left;
 }
 
 .logs {
@@ -120,40 +115,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   background: rgba(181,198,208,1);
 }
 
-.dropdown {
-  float: right;
-}
-
-.pie-container-right {
-  float: right;
-  max-width: 45%
-}
-.pie-container-left {
-  float: left;
-  max-width: 50%
-}
-
-.paragraph-image {
-  height: 600px;
-}
-
-.action-buttons {
-  float: right;
-  max-height: 30%;
-  width: 25%;
-  justify-content: center !important;
-}
 
 
-.action-button {
-  display: block !important;
-  justify-content: center !important;
-}
-
-.buttons {
-  float: right;
-  padding: 10px;
-}
 
 .particles-container {
   height: 100%;
@@ -178,16 +141,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   justify-content: center;
 }
 
-.button-header {
-  height: 44%;
-  width: 100%;
+.pie-container-right {
+  float: right;
+  max-width: 45%
 }
-.button-container {
-  height: 100%;
-}
-.button-footer {
-  height: 44%;
-  width: 100%;
+
+.pie-container-left {
+  float: left;
+  max-width: 45%
 }
 
 .streak {
