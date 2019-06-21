@@ -156,6 +156,35 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   white-space: pre
 }
 
+.title {
+  padding: 20% 0 0 0;
+  display: block !important;
+  justify-content: center !important;
+  text-align: center;
+}
+
+
+.title-container {
+  height: 50%;
+  width: 100%;
+  align-items: center !important;
+  justify-content: center !important
+}
+
+.title-description {
+  color: #8080ff;
+  display: block !important;
+  justify-content: center !important;
+  text-align: center;
+}
+
+.title-text {
+  font-family: cursive;
+  font-size: 400%;
+  color: #8080ff;
+  margin-bottom: 2% !important;
+}
+
 @media screen and (max-width: 500px) {
 
   .hp-bar {

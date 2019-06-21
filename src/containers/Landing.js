@@ -93,7 +93,16 @@ class Landing extends React.Component{
       	    "retina_detect": true
       	}} />
         <div className="button-container">
-        <div className="button-header"></div>
+        <div className="button-header">
+          <div className="title-container">
+            <div className="title">
+              <h2 className="title-text">BabyGotchi</h2>
+            </div>
+            <div className="title-description">
+              <p>A basic baby simulator</p>
+            </div>
+          </div>>
+        </div>
         <div className="particles-button">
           <Modal size={'mini'} trigger={<Button>Sign Up</Button>} closeIcon>
             <Modal.Header className="center-form">Sign Up</Modal.Header>
