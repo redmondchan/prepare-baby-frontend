@@ -19,3 +19,6 @@ Go to the root directory of the frontend and run ```npm install``` to install fr
 # Usage
 After installing dependencies, go to root direct of backend and run ```rails db:migrate``` and then run ```rails s``` to start the server.
 Go to the root directory of the frontend and run ```npm start``` to start using the application.
+
+# Demo
+A demo of this project has been deployed on [Heroku](https://babygotchi.herokuapp.com).
