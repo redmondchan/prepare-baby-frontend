@@ -32,7 +32,7 @@ class DropdownMenu extends React.Component {
             <Icon name='hand peace outline' />
             <span className='text'>Log Out</span>
           </Dropdown.Item>
-          <Modal trigger={} closeIcon>
+          <Modal trigger={<Dropdown.Item><span className="text">FAQ</span></Dropdown.Item>} closeIcon>
             <Modal.Header>FAQ</Modal.Header>
             <Modal.Content>
             Testing!
