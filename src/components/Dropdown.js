@@ -1,5 +1,5 @@
 import React from 'react'
-import { Dropdown, Icon } from 'semantic-ui-react'
+import { Dropdown, Icon, Modal } from 'semantic-ui-react'
 import StatsModal from './StatsModal'
 import {connect} from 'react-redux'
 import { logOut } from '../actions/actions'
@@ -32,6 +32,8 @@ class DropdownMenu extends React.Component {
             <Icon name='hand peace outline' />
             <span className='text'>Log Out</span>
           </Dropdown.Item>
+          <Modal>
+          </Modal>
         </Dropdown.Menu>
       </Dropdown>
     )
