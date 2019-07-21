@@ -28,10 +28,6 @@ class DropdownMenu extends React.Component {
             <Icon name='area graph' />
             <span className='text'>Stats</span>
           </Dropdown.Item>
-          <Dropdown.Item onClick={this.handleLogOut}>
-            <Icon name='hand peace' />
-            <span className='text'>Log Out</span>
-          </Dropdown.Item>
           <Modal trigger={<Dropdown.Item><Icon name='question'/><span className="text">FAQ</span></Dropdown.Item>} closeIcon>
             <Modal.Header className="faq-header">FAQ</Modal.Header>
             <Modal.Content>
@@ -47,6 +43,10 @@ class DropdownMenu extends React.Component {
                 <p className='faq-p'>Maybe in the future. Names are currently being randomly generated through an API.</p>
             </Modal.Content>
           </Modal>
+          <Dropdown.Item onClick={this.handleLogOut}>
+            <Icon name='hand peace' />
+            <span className='text'>Log Out</span>
+          </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
     )
