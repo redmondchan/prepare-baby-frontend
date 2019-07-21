@@ -88,6 +88,14 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f2f6f8', end
   float: right;
 }
 
+.faq-header {
+  text-align: center;
+}
+
+.faq-p {
+  text-indent: 1.0em;
+}
+
 .hp-bar {
   width: 25%;
 }
