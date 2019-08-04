@@ -12,6 +12,8 @@ class Container extends React.Component{
     let token = localStorage.token
     if(token === undefined){
       this.props.history.push('/')
+    } else {
+      this.props.getUser(token)
     }
   }
 
