@@ -5,6 +5,7 @@ import Log from '../components/Log'
 import ScenarioModal from '../components/ScenarioModal'
 import DropdownMenu from '../components/Dropdown'
 import { connect } from 'react-redux'
+import { getUser } from '../actions/actions'
 
 class Container extends React.Component{
 
@@ -13,6 +14,7 @@ class Container extends React.Component{
     if(token === undefined){
       this.props.history.push('/')
     } else {
+      console.log("getuser")
       this.props.getUser(token)
     }
   }
