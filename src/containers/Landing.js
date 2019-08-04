@@ -19,6 +19,7 @@ class Landing extends React.Component{
   }
 
   componentDidMount(){
+    let token = localStorage.token
     this.props.fetchNames()
   }
 
