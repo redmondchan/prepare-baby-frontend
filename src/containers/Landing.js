@@ -154,7 +154,8 @@ class Landing extends React.Component{
 const mapDispatchToProps = dispatch => ({
   fetchNames: () => dispatch(fetchNames()),
   createUser: (user) => dispatch(createUser(user)),
-  findUser: (user) => dispatch(findUser(user))
+  findUser: (user) => dispatch(findUser(user)),
+  getUser: (token) => dispatch(getUser(token))
 })
 
 const mapStateToProps = (state) =>{
