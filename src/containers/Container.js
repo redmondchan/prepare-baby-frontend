@@ -32,6 +32,7 @@ class Container extends React.Component{
 }
 
 const mapDispatchToProps = dispatch => ({
+  getUser: (token) => dispatch(getUser(token))
 })
 
 const mapStateToProps = (state) => {
