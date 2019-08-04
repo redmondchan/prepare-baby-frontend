@@ -20,6 +20,9 @@ class Landing extends React.Component{
 
   componentDidMount(){
     let token = localStorage.token
+    if(token !== undefined){
+      this.props.getUser(token).then(this.props.history.push('/baby'))
+    }
     this.props.fetchNames()
   }
 
