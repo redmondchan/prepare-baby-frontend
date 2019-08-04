@@ -31,6 +31,9 @@ class Container extends React.Component{
   }
 }
 
+const mapDispatchToProps = dispatch => ({
+})
+
 const mapStateToProps = (state) => {
   return{
     baby: state.baby
