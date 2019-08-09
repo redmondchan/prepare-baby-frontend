@@ -1,3 +1,4 @@
+//list of questions for scnearios
 const questions = [
   "Your bestfriend just got dumped. She wants you to go to the bar with her. What will you do?",
   "A group of your friends invited you to an international trip for a week. What will you do?",
